@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f9f9ff;color:#161c27;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-container": "#742505",
+          "secondary-fixed": "#ffdbd0",
+          "on-tertiary": "#ffffff",
+          "secondary-container": "#fd8c65",
+          "on-surface": "#161c27",
+          "on-tertiary-fixed-variant": "#3e4943",
+          "on-secondary-fixed": "#390c00",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#3c6657",
+          "inverse-primary": "#a3d0be",
+          "on-primary": "#ffffff",
+          "tertiary-fixed-dim": "#bdcac1",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#beedd9",
+          "surface-container-high": "#e3e8f9",
+          "on-primary-container": "#91beac",
+          "primary": "#07372a",
+          "on-secondary-fixed-variant": "#7e2c0c",
+          "surface-variant": "#dde2f3",
+          "error": "#ba1a1a",
+          "surface-container-low": "#f1f3ff",
+          "outline": "#717974",
+          "background": "#f9f9ff",
+          "primary-fixed-dim": "#a3d0be",
+          "outline-variant": "#c0c8c3",
+          "tertiary-container": "#3d4942",
+          "surface-bright": "#f9f9ff",
+          "tertiary-fixed": "#d9e6dd",
+          "on-background": "#161c27",
+          "on-tertiary-container": "#abb8af",
+          "error-container": "#ffdad6",
+          "primary-container": "#234e40",
+          "surface-dim": "#d4daea",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-fixed-variant": "#234e40",
+          "tertiary": "#27322d",
+          "on-tertiary-fixed": "#131e18",
+          "secondary-fixed-dim": "#ffb59c",
+          "secondary": "#9d4322",
+          "surface-container-highest": "#dde2f3",
+          "on-surface-variant": "#414845",
+          "inverse-surface": "#2a303d",
+          "on-error": "#ffffff",
+          "surface-container": "#e8eeff",
+          "on-primary-fixed": "#002117",
+          "surface": "#f9f9ff",
+          "inverse-on-surface": "#ecf0ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin-mobile": "1.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "3rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "body-md": ["Inter"],
+          "body-lg": ["Newsreader", "serif"],
+          "title-md": ["Inter"],
+          "headline-md": ["Newsreader", "serif"],
+          "label-md": ["Inter"],
+          "display-lg-mobile": ["Newsreader", "serif"],
+          "headline-lg-mobile": ["Newsreader", "serif"],
+          "display-lg": ["Newsreader", "serif"],
+          "headline-sm": ["Newsreader", "serif"],
+          "body-sm": ["Inter"],
+          "headline-lg": ["Newsreader", "serif"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+          "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "display-lg-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "500"}]
+        }
+      }
+    }
+  };
+</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+      background-color: #fbfbf9;
+      color: #111827;
+    }
+  </style></head><body class="bg-[#fbfbf9] text-[#111827] flex flex-col min-h-screen font-body-md"><header class="fixed top-0 w-full z-50 pt-safe bg-[#fbfbf9]/90 backdrop-blur-md border-b border-[#e5e4de]"><div class="h-16 px-4 flex items-center justify-between gap-2"><div class="flex items-center gap-2.5"><img alt="Academic Study Emblem" class="h-8 w-8 rounded-md object-cover border border-[#e2e1db] shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1WPSm-HRoxWKg8LpyOrLN647RTjPVFvgVIqzMnK1I5KSzMS-WLEv-6Hldwblk48UVZ1J0iOaaDJ3hejeDsDcYGKGw2OeLJQIDbnGUAnQswHj3ym-UVgfbuHP-4ZfhfgZXLoie8YdVwP9KRMRVJBTdDYPaT729NgYAX-JnDTBNUiiLF4bMywEx3gS1n5p0vBmadA7hhJvHRMnuqrMy_uArzZt-zsNffGDY3XS3BLOyOrTm6DJjR_mYIIIPI"/><div class="flex flex-col"><span class="font-label-sm text-[10px] tracking-widest uppercase text-primary font-semibold">Faculty Mentor</span><span class="font-headline-sm text-[17px] text-[#161c27] tracking-tight font-serif leading-tight">Study Companion</span></div></div><div class="flex items-center gap-1.5"><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2 py-1 rounded-full text-secondary shadow-xs"><span class="material-symbols-outlined text-[14px] leading-none text-secondary">local_fire_department</span><span class="font-label-sm text-[11px] font-bold">5D Streak</span></div><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2 py-1 rounded-full text-primary shadow-xs"><span class="material-symbols-outlined text-[14px] leading-none text-primary">auto_stories</span><span class="font-label-sm text-[11px] font-bold">480 CP</span></div><a class="relative flex items-center justify-center rounded-full p-0.5 ml-0.5 ring-1 ring-primary/20 hover:ring-primary transition-all" data-path="student-profile" href="#"><img alt="Student Profile" class="w-8 h-8 rounded-full object-cover shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1VGSHcEiIPuGYVW4Nr_5eczaIfYqMibI-MiVy_enTzS0MSuY-5wCun1CKhFNKvNuxsZuo0KeQd-MSqGvkzrFQzjzlv15CKCQGAHSHpbQuDoDLDD2HBhHw0Bo-kzIqBkFNZm2KYAXNvmhvaAU3C4RNM8gfUiZNhNHo_RtvdQc2-uD8KZH2yrlvPztDMcSCRNaeA5fBLnFJuU5rNZMcX3vStyDyrwQkWtcUfHGm-ho6rA6j77I6fG2ibbFCPF"/></a></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-[#fbfbf9] min-h-screen"><div class="flex flex-col w-full px-4 pt-3 pb-6 space-y-3.5">
+<!-- Subject & Context Selector Bar -->
+<div class="w-full relative z-20">
+<div class="bg-white border border-[#e7e6df] rounded-xl p-3 shadow-xs flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5 min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-[#eaf4f0] border border-[#d2e8dd] flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[19px]">account_tree</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-on-surface-variant flex items-center gap-1">
+            Current Syllabus
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span>
+</span>
+<button class="flex items-center gap-1 text-left group" id="course-dropdown-btn">
+<span class="font-title-md text-[14px] text-on-surface font-semibold truncate group-hover:text-primary transition-colors" id="active-course-label">
+              CS-402: Distributed Consensus &amp; Raft
+            </span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant transition-transform duration-200" id="course-chevron">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0 bg-[#f5f4ef] border border-[#e6e5dd] px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">school</span>
+<span class="font-label-sm text-[11px] text-[#27322d] font-semibold">Syllabus v4</span>
+</div>
+</div>
+<!-- Course Dropdown Popover -->
+<div class="hidden absolute top-full left-0 right-0 mt-1 bg-white border border-[#e2e1db] rounded-xl shadow-lg overflow-hidden z-30 transition-all" id="course-dropdown-menu">
+<div class="p-1 space-y-0.5">
+<button class="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-[#f5f4ef] text-on-surface" onclick="selectCourse('CS-402: Distributed Consensus &amp; Raft')">
+<div class="flex flex-col">
+<span class="font-title-md text-sm font-semibold text-[#161c27]">CS-402: Distributed Consensus &amp; Raft</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Core Systems • Lecture 14 Reading Notes</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</button>
+<button class="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-[#f5f4ef] text-on-surface" onclick="selectCourse('MATH-301: Markov Chains &amp; Martingales')">
+<div class="flex flex-col">
+<span class="font-title-md text-sm font-semibold text-[#161c27]">MATH-301: Markov Chains &amp; Martingales</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Probability Theory • Module 8 Reference</span>
+</div>
+</button>
+<button class="w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between hover:bg-[#f5f4ef] text-on-surface" onclick="selectCourse('EE-512: Deep Neural Architectures')">
+<div class="flex flex-col">
+<span class="font-title-md text-sm font-semibold text-[#161c27]">EE-512: Deep Neural Architectures</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Machine Intelligence • Lab 4 Annotated</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Multilingual Segmented Rail -->
+<div class="bg-white border border-[#e5e4de] p-1 rounded-xl shadow-xs">
+<div class="flex items-center justify-between gap-1 w-full" id="lang-switcher">
+<button class="flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center bg-[#234e40] text-white shadow-xs" id="btn-lang-en" onclick="setLanguage('en')">
+<span class="font-semibold tracking-tight text-[12px]">EN</span>
+<span class="font-label-sm text-[9.5px] opacity-90">English</span>
+</button>
+<button class="flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center text-on-surface-variant hover:bg-[#f5f4ef]" id="btn-lang-ta" onclick="setLanguage('ta')">
+<span class="font-semibold text-[12px]">தமிழ்</span>
+<span class="font-label-sm text-[9.5px] text-on-surface-variant">Tamil</span>
+</button>
+<button class="flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center text-on-surface-variant hover:bg-[#f5f4ef]" id="btn-lang-hi" onclick="setLanguage('hi')">
+<span class="font-semibold text-[12px]">हिन्दी</span>
+<span class="font-label-sm text-[9.5px] text-on-surface-variant">Hindi</span>
+</button>
+<button class="flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center text-on-surface-variant hover:bg-[#f5f4ef]" id="btn-lang-tanglish" onclick="setLanguage('tanglish')">
+<span class="font-semibold tracking-tight text-[12px]">Tanglish</span>
+<span class="font-label-sm text-[9.5px] text-on-surface-variant">Colloquial</span>
+</button>
+</div>
+</div>
+<!-- Real-time Mode Toast Indicator -->
+<div class="flex items-center justify-between px-1 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-[11px] text-[#27322d] tracking-wide" id="active-mode-tag">Annotation Mode: Standard English (Scholarly Text)</span>
+</div>
+<span class="font-label-sm text-[11px] text-outline">Bilingual Gloss Active</span>
+</div>
+<!-- Chat History Stream -->
+<div class="flex flex-col space-y-3.5">
+<!-- Student Prompt (User Message) -->
+<div class="flex items-start justify-end gap-2 pl-6">
+<div class="flex flex-col items-end max-w-[85%]">
+<div class="bg-[#f2ede4] border border-[#e4ded4] text-[#1e2329] rounded-2xl rounded-tr-xs px-4 py-3 shadow-xs">
+<p class="font-body-md text-[14px] leading-relaxed">
+            Can you explain Raft Leader Election simply? What happens during a split vote?
+          </p>
+</div>
+<div class="flex items-center gap-1 mt-1 pr-1">
+<span class="font-label-sm text-[10px] text-outline">10:42 AM</span>
+<span class="material-symbols-outlined text-[13px] text-primary">done_all</span>
+</div>
+</div>
+<img alt="Student avatar" class="w-8 h-8 rounded-full object-cover shrink-0 mt-1 border border-[#e4ded4] shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1VGSHcEiIPuGYVW4Nr_5eczaIfYqMibI-MiVy_enTzS0MSuY-5wCun1CKhFNKvNuxsZuo0KeQd-MSqGvkzrFQzjzlv15CKCQGAHSHpbQuDoDLDD2HBhHw0Bo-kzIqBkFNZm2KYAXNvmhvaAU3C4RNM8gfUiZNhNHo_RtvdQc2-uD8KZH2yrlvPztDMcSCRNaeA5fBLnFJuU5rNZMcX3vStyDyrwQkWtcUfHGm-ho6rA6j77I6fG2ibbFCPF"/>
+</div>
+<!-- AI Academic Companion Response -->
+<div class="flex items-start gap-2.5 pr-1">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-white flex items-center justify-center shrink-0 shadow-xs mt-1">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<div class="flex flex-col max-w-[92%] space-y-2">
+<!-- Companion Textbook Note Card -->
+<div class="bg-white border border-[#e5e4de] rounded-2xl rounded-tl-xs p-4 shadow-xs relative overflow-hidden">
+<!-- Header info inside scholarly card -->
+<div class="flex items-center justify-between pb-2 mb-2 border-b border-[#f0eee6]">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-[10px] uppercase font-bold tracking-wider text-primary">Syllabus Mentor (CS-402) • Faculty Notes</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 text-[12px] bg-[#f7f6f0] px-2 py-0.5 rounded border border-[#e8e7df]" onclick="speakCurrentSnippet()">
+<span class="material-symbols-outlined text-[14px] text-primary">volume_up</span>
+<span class="font-label-sm text-[11px] font-medium">Read Aloud</span>
+</button>
+</div>
+<!-- Dynamic localized response text container formatted as academic note -->
+<div class="font-body-lg text-[15px] leading-relaxed text-[#161c27] font-serif" id="ai-response-body">
+            In the <span class="font-sans font-semibold bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">Raft Protocol</span>, the active leader continuously transmits periodic <span class="font-sans font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8] px-1.5 py-0.5 rounded text-[13px]">heartbeats</span> to affirm authority. If followers fail to detect signals within a randomized election timeout (<span class="font-sans font-semibold text-primary">150–300ms</span>), they self-promote to Candidates.<br/><br/>
+            When two simultaneous candidates split votes evenly, the randomized timer triggers a rapid reset: a fresh ballot sequence commences immediately without deadlock!
+          </div>
+<!-- State Machine Micro-diagram Pill -->
+<div class="mt-3.5 bg-[#fbfbf9] border border-[#e8e7df] p-2.5 rounded-lg flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">device_hub</span>
+<span class="font-label-sm text-[11px] font-semibold text-on-surface font-sans">Follower → Candidate → Leader</span>
+</div>
+<span class="font-label-sm text-[10px] font-semibold bg-[#eaf4f0] text-primary border border-[#cce8db] px-2 py-0.5 rounded">Safe Invariant</span>
+</div>
+<!-- Quick interactive translation switcher chips right inside card -->
+<div class="mt-3 pt-2.5 border-t border-[#f0eee6] flex items-center gap-1.5 flex-wrap">
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-outline mr-0.5">Annotation Dialect:</span>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8]" onclick="setLanguage('en')">English</button>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#f5f4ef] text-on-surface-variant hover:text-on-surface border border-[#e6e5dd]" onclick="setLanguage('tanglish')">Tanglish</button>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#f5f4ef] text-on-surface-variant hover:text-on-surface border border-[#e6e5dd]" onclick="setLanguage('ta')">தமிழ்</button>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#f5f4ef] text-on-surface-variant hover:text-on-surface border border-[#e6e5dd]" onclick="setLanguage('hi')">हिन्दी</button>
+</div>
+</div>
+<!-- Academic Evaluation / Action Strip -->
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1">
+<button class="p-1 px-1.5 rounded-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 text-[11px] hover:bg-white">
+<span class="material-symbols-outlined text-[15px]">thumb_up</span>
+<span>Helpful</span>
+</button>
+<button class="p-1 px-1.5 rounded-md text-on-surface-variant hover:text-error transition-colors flex items-center gap-1 text-[11px] hover:bg-white">
+<span class="material-symbols-outlined text-[15px]">thumb_down</span>
+</button>
+<button class="p-1 px-1.5 rounded-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 text-[11px] hover:bg-white">
+<span class="material-symbols-outlined text-[15px]">bookmark_add</span>
+<span>Save Note</span>
+</button>
+</div>
+<span class="font-label-sm text-[11px] text-primary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">military_tech</span> +15 Study CP Earned
+              </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actionable Prompts Rail (Scholarly Context) -->
+<div class="space-y-1.5 pt-1">
+<div class="flex items-center justify-between px-1">
+<span class="font-label-sm text-[10.5px] text-outline uppercase tracking-wider font-semibold">Scholarly Inquiries</span>
+<span class="material-symbols-outlined text-outline text-[15px]">auto_awesome</span>
+</div>
+<div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+<button class="shrink-0 bg-white border border-[#e5e4de] hover:border-primary/40 text-on-surface px-3 py-2 rounded-xl text-left transition-colors shadow-xs flex items-center gap-2" onclick="handleQuickPrompt('Provide historical context / real-world analogy for split votes')">
+<span class="material-symbols-outlined text-[16px] text-secondary">history_edu</span>
+<span class="font-label-md text-[12px] whitespace-nowrap font-medium">Historical context / analogy</span>
+</button>
+<button class="shrink-0 bg-white border border-[#e5e4de] hover:border-primary/40 text-on-surface px-3 py-2 rounded-xl text-left transition-colors shadow-xs flex items-center gap-2" onclick="handleQuickPrompt('Generate a 3-question review quiz on this')">
+<span class="material-symbols-outlined text-[16px] text-primary">quiz</span>
+<span class="font-label-md text-[12px] whitespace-nowrap font-medium">Generate 3-question review</span>
+</button>
+<button class="shrink-0 bg-white border border-[#e5e4de] hover:border-primary/40 text-on-surface px-3 py-2 rounded-xl text-left transition-colors shadow-xs flex items-center gap-2" onclick="handleQuickPrompt('Summarize key points in 3 bullet points')">
+<span class="material-symbols-outlined text-[16px] text-[#27322d]">format_list_bulleted</span>
+<span class="font-label-md text-[12px] whitespace-nowrap font-medium">Summarize in bullet points</span>
+</button>
+<button class="shrink-0 bg-white border border-[#e5e4de] hover:border-primary/40 text-on-surface px-3 py-2 rounded-xl text-left transition-colors shadow-xs flex items-center gap-2" onclick="handleQuickPrompt('List the core formal state invariants')">
+<span class="material-symbols-outlined text-[16px] text-secondary">functions</span>
+<span class="font-label-md text-[12px] whitespace-nowrap font-medium">Formal Invariants</span>
+</button>
+</div>
+</div>
+<!-- Refined Editorial Paper Input Deck -->
+<div class="bg-white border border-[#e5e4de] p-2.5 rounded-2xl shadow-xs space-y-2">
+<!-- Active Context Indicator Inside Bar -->
+<div class="flex items-center justify-between px-1.5 text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-primary">translate</span>
+<span class="font-label-sm text-[11px]" id="input-language-indicator">Faculty Notes • Academic English (Auto-detection enabled)</span>
+</div>
+<span class="font-label-sm text-[10.5px] text-outline font-mono">LaTeX / MathJax Enabled</span>
+</div>
+<!-- Main Message Input Box -->
+<div class="flex items-center gap-2 bg-[#fbfbf9] border border-[#e6e5dd] rounded-xl px-3 py-1.5 focus-within:border-primary focus-within:bg-white transition-all">
+<button class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md" title="Attach lecture note or diagram">
+<span class="material-symbols-outlined text-[19px]">add_circle</span>
+</button>
+<input class="bg-transparent flex-1 font-body-md text-sm text-[#161c27] placeholder:text-outline/70 focus:outline-none min-w-0" id="tutor-chat-input" onkeydown="if(event.key === 'Enter') submitUserPrompt()" placeholder="Ask your syllabus companion in any language..." type="text"/>
+<button class="text-outline hover:text-secondary transition-colors p-1 flex items-center justify-center rounded-md" id="voice-record-btn" onclick="toggleVoiceMode()" title="Voice Clarification">
+<span class="material-symbols-outlined text-[19px]" id="voice-icon">mic</span>
+</button>
+<button class="bg-[#234e40] text-white hover:bg-[#1b3d32] transition-colors p-1.5 rounded-lg flex items-center justify-center shadow-xs" onclick="submitUserPrompt()" title="Submit Question">
+<span class="material-symbols-outlined text-[17px]">arrow_upward</span>
+</button>
+</div>
+<!-- Quick Tool Attachments Row -->
+<div class="flex items-center gap-1.5 px-0.5 text-on-surface-variant overflow-x-auto no-scrollbar">
+<button class="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[13px] text-primary">photo_camera</span>
+<span>Snap Diagram</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[13px] text-secondary">auto_stories</span>
+<span>Syllabus Page 14</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[13px] text-primary">record_voice_over</span>
+<span>Pronounce Terms</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0">
+<span class="material-symbols-outlined text-[13px] text-outline">tune</span>
+<span>Academic Depth</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  const multilingualSnippets = {
+    en: {
+      tag: "Annotation Mode: Standard English (Scholarly Text)",
+      inputTag: "Faculty Notes • Academic English (Auto-detection enabled)",
+      content: `In the <span class="font-sans font-semibold bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">Raft Protocol</span>, the active leader continuously transmits periodic <span class="font-sans font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8] px-1.5 py-0.5 rounded text-[13px]">heartbeats</span> to affirm authority. If followers fail to detect signals within a randomized election timeout (<span class="font-sans font-semibold text-primary">150–300ms</span>), they self-promote to Candidates.<br><br>When two simultaneous candidates split votes evenly, the randomized timer triggers a rapid reset: a fresh ballot sequence commences immediately without deadlock!`
+    },
+    tanglish: {
+      tag: "Annotation Mode: Tanglish (Chennai Academic Dialect)",
+      inputTag: "Faculty Notes • Conversational Tanglish active",
+      content: `Simple ah sollanum na: <span class="font-sans font-semibold bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">Raft</span> la leader regular ah <span class="font-sans font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8] px-1.5 py-0.5 rounded text-[13px]">heartbeat</span> anupum. Follower ku heartbeat varalana <span class="font-sans font-semibold text-primary">Candidate</span> ah maari vote kekkum.<br><br>Rendu perukum ore maari <span class="font-sans font-medium bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">Split vote</span> aana, election timeout randomized ah reset aagi fresh ah next round start aagum! No deadlock!`
+    },
+    ta: {
+      tag: "Annotation Mode: தமிழ் (பாடத்திட்டக் குறிப்பு விளக்கம்)",
+      inputTag: "பாடக் குறிப்பு • தூய தமிழ் எழுத்துரு இயக்கம்",
+      content: `<span class="font-sans font-semibold bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">ராஃப்ட் (Raft)</span> நெறிமுறையில் தலைவர் (Leader) தொடர் துடிப்புச் சமிக்ஞையை (<span class="font-sans font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8] px-1.5 py-0.5 rounded text-[13px]">heartbeats</span>) அனுப்புவார். அதைத் தவறவிட்டால் பின்தொடர்பவர்கள் வேட்பாளராக மாறுவர்.<br><br>சமநிலை வாக்குகள் (<span class="font-sans font-semibold text-secondary">Split Vote</span>) ஏற்படும் போது, சீரற்ற காலக்கெடு (<span class="font-sans font-semibold text-primary">150–300ms</span>) தானாகவே புதுப்பிக்கப்பட்டு புதிய தேர்தல் தொடங்கும்.`
+    },
+    hi: {
+      tag: "Annotation Mode: हिन्दी (शैक्षणिक व्याख्या एवं संदर्भ)",
+      inputTag: "अध्ययन सामग्री • देवनागरी व्याख्या प्रणाली सक्रिय",
+      content: `<span class="font-sans font-semibold bg-[#fff3ed] text-secondary border border-[#ffd5c4] px-1.5 py-0.5 rounded text-[13px]">राफ्ट (Raft)</span> में नेता निरंतर <span class="font-sans font-medium bg-[#eaf4f0] text-primary border border-[#cbe5d8] px-1.5 py-0.5 rounded text-[13px]">हार्टबीट (Heartbeat)</span> भेजता है। यदि फॉलोअर्स को समय पर संकेत नहीं मिलता, तो वे प्रत्याशी बन जाते हैं।<br><br>यदि दो प्रत्याशियों के मत बराबर बंट जाते हैं (<span class="font-sans font-semibold text-secondary">Split Vote</span>), तो रैंडमाइज़्ड इलेक्शन टाइमआउट तुरंत रीसेट होकर नया चुनाव शुरू कर देता है!`
+    }
+  };
+
+  let currentLang = 'en';
+
+  function setLanguage(langKey) {
+    currentLang = langKey;
+    const bodyEl = document.getElementById('ai-response-body');
+    const modeTag = document.getElementById('active-mode-tag');
+    const inputTag = document.getElementById('input-language-indicator');
+
+    if (bodyEl && multilingualSnippets[langKey]) {
+      bodyEl.style.opacity = '0';
+      setTimeout(() => {
+        bodyEl.innerHTML = multilingualSnippets[langKey].content;
+        bodyEl.style.opacity = '1';
+      }, 120);
+      modeTag.innerText = multilingualSnippets[langKey].tag;
+      inputTag.innerText = multilingualSnippets[langKey].inputTag;
+    }
+
+    const btnKeys = ['en', 'ta', 'hi', 'tanglish'];
+    btnKeys.forEach(k => {
+      const btn = document.getElementById('btn-lang-' + k);
+      if (btn) {
+        if (k === langKey) {
+          btn.className = "flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center bg-[#234e40] text-white shadow-xs";
+          const sub = btn.querySelector('span:last-child');
+          if (sub) sub.className = "font-label-sm text-[9.5px] opacity-90";
+        } else {
+          btn.className = "flex-1 py-1.5 px-1 rounded-lg font-label-md text-label-md transition-all flex flex-col items-center justify-center text-on-surface-variant hover:bg-[#f5f4ef]";
+          const sub = btn.querySelector('span:last-child');
+          if (sub) sub.className = "font-label-sm text-[9.5px] text-on-surface-variant";
+        }
+      }
+    });
+  }
+
+  function handleQuickPrompt(text) {
+    const input = document.getElementById('tutor-chat-input');
+    if (input) {
+      input.value = text;
+      input.focus();
+    }
+  }
+
+  function submitUserPrompt() {
+    const input = document.getElementById('tutor-chat-input');
+    if (!input || !input.value.trim()) return;
+    const val = input.value;
+    input.value = '';
+    
+    const bodyEl = document.getElementById('ai-response-body');
+    if (bodyEl) {
+      bodyEl.innerHTML = `<span class="italic text-on-surface-variant flex items-center gap-1.5 font-serif">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        Consulting faculty notes for "${val}" in ${currentLang.toUpperCase()}...
+      </span>`;
+      setTimeout(() => {
+        setLanguage(currentLang);
+      }, 1000);
+    }
+  }
+
+  function toggleVoiceMode() {
+    const icon = document.getElementById('voice-icon');
+    if (!icon) return;
+    if (icon.innerText === 'mic') {
+      icon.innerText = 'graphic_eq';
+      icon.classList.add('text-secondary');
+    } else {
+      icon.innerText = 'mic';
+      icon.classList.remove('text-secondary');
+    }
+  }
+
+  function speakCurrentSnippet() {
+    const synth = window.speechSynthesis;
+    if (!synth) return;
+    const langMap = { en: 'en-US', ta: 'ta-IN', hi: 'hi-IN', tanglish: 'en-IN' };
+    const plainText = document.getElementById('ai-response-body').innerText;
+    const utterThis = new SpeechSynthesisUtterance(plainText);
+    utterThis.lang = langMap[currentLang] || 'en-US';
+    synth.cancel();
+    synth.speak(utterThis);
+  }
+
+  // Course popover logic
+  const courseBtn = document.getElementById('course-dropdown-btn');
+  const courseMenu = document.getElementById('course-dropdown-menu');
+  const chevron = document.getElementById('course-chevron');
+
+  if (courseBtn && courseMenu) {
+    courseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isHidden = courseMenu.classList.contains('hidden');
+      if (isHidden) {
+        courseMenu.classList.remove('hidden');
+        chevron.style.transform = 'rotate(180deg)';
+      } else {
+        courseMenu.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    });
+
+    document.addEventListener('click', () => {
+      if (!courseMenu.classList.contains('hidden')) {
+        courseMenu.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    });
+  }
+
+  function selectCourse(name) {
+    const label = document.getElementById('active-course-label');
+    if (label) {
+      label.innerText = name;
+    }
+    if (courseMenu) {
+      courseMenu.classList.add('hidden');
+      chevron.style.transform = 'rotate(0deg)';
+    }
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#fbfbf9]/95 backdrop-blur-md border-t border-[#e5e4de]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[21px]">dashboard</span><span class="font-label-sm text-[10.5px]">Home</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="catalogue" href="#"><span class="material-symbols-outlined text-[21px]">menu_book</span><span class="font-label-sm text-[10.5px]">Catalogue</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="focus-timer" href="#"><span class="material-symbols-outlined text-[21px]">timelapse</span><span class="font-label-sm text-[10.5px]">Focus</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] transition-colors text-primary font-semibold" data-path="ai-tutor" href="#"><span class="material-symbols-outlined text-[21px] text-primary">school</span><span class="font-label-sm text-[10.5px] font-bold">Companion</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="rewards" href="#"><span class="material-symbols-outlined text-[21px]">military_tech</span><span class="font-label-sm text-[10.5px]">Rewards</span></a></div></nav></body></html>

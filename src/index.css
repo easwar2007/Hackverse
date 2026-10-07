@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Newsreader', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --color-primary: #07372a;
+    --color-primary-container: #234e40;
+    --color-primary-fixed: #beedd9;
+    --color-secondary: #9d4322;
+    --color-secondary-fixed: #ffdbd0;
+    --color-surface-bg: #fbfbf9;
+    --color-surface-card: #ffffff;
+    --color-surface-container: #e8eeff;
+    --color-surface-high: #dde2f3;
+    --color-border: #e5e4de;
+  }
+
+  html, body {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #fbfbf9;
+    color: #161c27;
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+  }
+
+  .font-serif {
+    font-family: var(--font-serif);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+}
+
+/* Material Symbols Outlined font-variation-settings */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}
+
+/* Stitch custom colors utility classes */
+.bg-primary { background-color: #07372a; }
+.bg-primary-container { background-color: #234e40; }
+.bg-primary-fixed { background-color: #beedd9; }
+.bg-secondary { background-color: #9d4322; }
+.bg-secondary-fixed { background-color: #ffdbd0; }
+.bg-secondary-container { background-color: #fd8c65; }
+.bg-surface-lowest { background-color: #ffffff; }
+.bg-surface-low { background-color: #f5f4ef; }
+.bg-surface-container { background-color: #e8eeff; }
+.bg-surface-container-high { background-color: #dde2f3; }
+.bg-surface-container-highest { background-color: #c9d2eb; }
+
+.text-primary { color: #07372a; }
+.text-on-primary { color: #ffffff; }
+.text-secondary { color: #9d4322; }
+.text-on-secondary { color: #ffffff; }
+.text-on-secondary-fixed { color: #390c00; }
+.text-on-surface { color: #161c27; }
+.text-on-surface-variant { color: #414845; }
+.text-outline { color: #717974; }
+
+.border-stitch { border-color: #e5e4de; }
+
+/* Phone vibration animation for call shield */
+@keyframes phoneVibrate {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10%, 30%, 50%, 70%, 90% { transform: translate(-2px, 1px) rotate(-1deg); }
+  20%, 40%, 60%, 80% { transform: translate(2px, -1px) rotate(1deg); }
+}
+
+.animate-phone-ring {
+  animation: phoneVibrate 0.65s infinite ease-in-out;
+}
+
+/* Soft pulse glow */
+@keyframes subtleGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.01); }
+}
+
+.animate-glow {
+  animation: subtleGlow 2.5s infinite ease-in-out;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

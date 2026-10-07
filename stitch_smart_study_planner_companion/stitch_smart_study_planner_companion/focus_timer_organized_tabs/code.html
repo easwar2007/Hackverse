@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbfbf9;color:#161c27;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-container": "#742505",
+          "secondary-fixed": "#ffdbd0",
+          "on-tertiary": "#ffffff",
+          "secondary-container": "#fd8c65",
+          "on-surface": "#161c27",
+          "on-tertiary-fixed-variant": "#3e4943",
+          "on-secondary-fixed": "#390c00",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#3c6657",
+          "inverse-primary": "#a3d0be",
+          "on-primary": "#ffffff",
+          "tertiary-fixed-dim": "#bdcac1",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#beedd9",
+          "surface-container-high": "#e3e8f9",
+          "on-primary-container": "#91beac",
+          "primary": "#07372a",
+          "on-secondary-fixed-variant": "#7e2c0c",
+          "surface-variant": "#dde2f3",
+          "error": "#ba1a1a",
+          "surface-container-low": "#f1f3ff",
+          "outline": "#717974",
+          "background": "#f9f9ff",
+          "primary-fixed-dim": "#a3d0be",
+          "outline-variant": "#c0c8c3",
+          "tertiary-container": "#3d4942",
+          "surface-bright": "#f9f9ff",
+          "tertiary-fixed": "#d9e6dd",
+          "on-background": "#161c27",
+          "on-tertiary-container": "#abb8af",
+          "error-container": "#ffdad6",
+          "primary-container": "#234e40",
+          "surface-dim": "#d4daea",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-fixed-variant": "#234e40",
+          "tertiary": "#27322d",
+          "on-tertiary-fixed": "#131e18",
+          "secondary-fixed-dim": "#ffb59c",
+          "secondary": "#9d4322",
+          "surface-container-highest": "#dde2f3",
+          "on-surface-variant": "#414845",
+          "inverse-surface": "#2a303d",
+          "on-error": "#ffffff",
+          "surface-container": "#e8eeff",
+          "on-primary-fixed": "#002117",
+          "surface": "#f9f9ff",
+          "inverse-on-surface": "#ecf0ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin-mobile": "1.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "3rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "body-md": ["Inter"],
+          "body-lg": ["Newsreader", "serif"],
+          "title-md": ["Inter"],
+          "headline-md": ["Newsreader", "serif"],
+          "label-md": ["Inter"],
+          "display-lg-mobile": ["Newsreader", "serif"],
+          "headline-lg-mobile": ["Newsreader", "serif"],
+          "display-lg": ["Newsreader", "serif"],
+          "headline-sm": ["Newsreader", "serif"],
+          "body-sm": ["Inter"],
+          "headline-lg": ["Newsreader", "serif"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+          "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "display-lg-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "500"}]
+        }
+      }
+    }
+  };
+</script></head><body class="bg-[#fbfbf9] text-[#161c27] flex flex-col min-h-screen font-body-md"><header class="fixed top-0 w-full z-50 pt-safe bg-[#fbfbf9]/90 backdrop-blur-md border-b border-[#e5e4de]"><div class="h-16 px-4 flex items-center justify-between gap-3"><div class="flex items-center gap-2.5"><img alt="Academic Study Emblem" class="h-8 w-8 rounded-md object-cover border border-[#e2e1db] shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1WPSm-HRoxWKg8LpyOrLN647RTjPVFvgVIqzMnK1I5KSzMS-WLEv-6Hldwblk48UVZ1J0iOaaDJ3hejeDsDcYGKGw2OeLJQIDbnGUAnQswHj3ym-UVgfbuHP-4ZfhfgZXLoie8YdVwP9KRMRVJBTdDYPaT729NgYAX-JnDTBNUiiLF4bMywEx3gS1n5p0vBmadA7hhJvHRMnuqrMy_uArzZt-zsNffGDY3XS3BLOyOrTm6DJjR_mYIIIPI"/><div class="flex flex-col"><span class="font-label-sm text-[10px] tracking-widest uppercase text-primary font-semibold">Faculty Mentor</span><span class="font-headline-sm text-[17px] text-[#161c27] tracking-tight font-serif leading-tight">Study Companion</span></div></div><div class="flex items-center gap-2"><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2.5 py-1 rounded-full text-secondary shadow-xs"><span class="material-symbols-outlined text-[15px] leading-none text-secondary">local_fire_department</span><span class="font-label-sm text-[11px] font-bold">5D Streak</span></div><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2.5 py-1 rounded-full text-primary shadow-xs"><span class="material-symbols-outlined text-[15px] leading-none text-primary">auto_stories</span><span class="font-label-sm text-[11px] font-bold">480 CP</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-[#fbfbf9] min-h-screen"><div class="flex flex-col w-full px-4 py-4 space-y-5">
+<!-- Archival Context / Breadcrumb Sub-bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-md text-label-md tracking-wider uppercase">
+<span class="material-symbols-outlined text-[15px] text-primary">menu_book</span>
+<span>Bodleian Study Suite · Desk 14</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span>Deep Session</span>
+</div>
+</div>
+<!-- Segmented Tab Navigation -->
+<nav aria-label="Focus Module Tabs" class="flex p-1 bg-surface-container-high rounded-lg shadow-sm">
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm font-semibold" id="tab-timer-btn" onclick="switchFocusTab('timer')">
+<span class="material-symbols-outlined text-[17px]">hourglass_empty</span>
+<span>Timer</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface font-normal" id="tab-shield-btn" onclick="switchFocusTab('shield')">
+<span class="material-symbols-outlined text-[17px]">shield_with_heart</span>
+<span>Call Shield</span>
+</button>
+<button class="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface font-normal" id="tab-controls-btn" onclick="switchFocusTab('controls')">
+<span class="material-symbols-outlined text-[17px]">tune</span>
+<span>App Controls</span>
+</button>
+</nav>
+<!-- ================= TAB 1: TIMER (ACTIVE BY DEFAULT) ================= -->
+<section class="flex flex-col space-y-5" id="pane-timer">
+<!-- Active Reading Card -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary mt-0.5">
+<span class="material-symbols-outlined text-[22px]">history_edu</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Current Colloquium</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug">CS-402: Distributed Consensus &amp; Raft Protocols</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Chapter IV: Log Invariant Proofs (pp. 142–168)</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center justify-center hover:bg-surface-container" title="Change Reading Assignment">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</button>
+</div>
+<!-- Timer Ring & Display -->
+<div class="relative bg-surface-container-lowest rounded-xl p-6 shadow-sm flex flex-col items-center justify-center overflow-hidden">
+<!-- Watermark Seal Background -->
+<div class="absolute -right-8 -bottom-8 opacity-[0.03] pointer-events-none select-none text-primary">
+<span class="material-symbols-outlined text-[220px]">architecture</span>
+</div>
+<!-- Scholastic Ring SVG -->
+<div class="relative w-64 h-64 flex items-center justify-center my-2">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 240 240">
+<!-- Background track -->
+<circle class="text-surface-container" cx="120" cy="120" fill="none" r="102" stroke="currentColor" stroke-width="6"></circle>
+<!-- Subtle tick ring -->
+<circle class="text-surface-container-high" cx="120" cy="120" fill="none" r="92" stroke="currentColor" stroke-dasharray="2,6" stroke-width="1"></circle>
+<!-- Animated Progress Bar (24:12 elapsed of 25:00 ~ 96.8% remaining) -->
+<circle class="text-primary transition-all duration-700 ease-out" cx="120" cy="120" fill="none" id="timer-ring" r="102" stroke="currentColor" stroke-dasharray="640.88" stroke-dashoffset="20.5" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<!-- Center Counter Display -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-on-surface-variant mb-1">Time Remaining</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface font-headline-md tracking-tight" id="timer-display">24:12</span>
+<div class="flex items-center gap-1.5 mt-1.5 text-secondary">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+<span class="font-label-sm text-label-sm font-semibold">+35 Credit Points upon completion</span>
+</div>
+</div>
+</div>
+<!-- Presets Selector -->
+<div class="w-full mt-2">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Standard Durations</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">Pomodoro Standard</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<button class="preset-btn py-2 px-3 rounded-lg font-label-md text-label-md transition-colors bg-primary text-on-primary font-semibold shadow-xs flex items-center justify-center gap-1" onclick="setDurationPreset(25, this)">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>25m</span>
+</button>
+<button class="preset-btn py-2 px-3 rounded-lg font-label-md text-label-md transition-colors bg-surface-container text-on-surface font-medium hover:bg-surface-container-high flex items-center justify-center gap-1" onclick="setDurationPreset(45, this)">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>45m</span>
+</button>
+<button class="preset-btn py-2 px-3 rounded-lg font-label-md text-label-md transition-colors bg-surface-container text-on-surface font-medium hover:bg-surface-container-high flex items-center justify-center gap-1" onclick="setDurationPreset(60, this)">
+<span class="material-symbols-outlined text-[15px]">timer</span>
+<span>60m</span>
+</button>
+</div>
+</div>
+<!-- Timer Control Actions -->
+<div class="flex items-center justify-center gap-3 w-full mt-5 pt-4 bg-surface-container-low/50 rounded-lg p-2">
+<button class="flex-1 py-3 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-title-md text-title-md flex items-center justify-center gap-2 shadow-sm transition-colors" id="toggle-play-btn" onclick="toggleTimer()">
+<span class="material-symbols-outlined text-[20px]" id="play-icon">pause</span>
+<span id="play-text">Pause Focus</span>
+</button>
+<button class="px-4 py-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors shadow-xs" onclick="resetTimer()">
+<span class="material-symbols-outlined text-[18px]">stop_circle</span>
+<span>End Session</span>
+</button>
+</div>
+</div>
+<!-- Scholastic Marginalia Tip -->
+<div class="bg-surface-container-low p-3.5 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">lightbulb</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm font-semibold text-secondary uppercase tracking-wider">Archival Discipline Note</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+          "The faculty preserves uninterrupted deep thought. Sudden phone calls will be logged and credited gracefully in the Call Shield."
+        </p>
+</div>
+</div>
+</section>
+<!-- ================= TAB 2: CALL SHIELD ================= -->
+<section class="hidden flex-col space-y-4" id="pane-shield">
+<!-- Call Auto-Credit Feature Banner -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center gap-2.5">
+<div class="w-9 h-9 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">phone_paused</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Auto-Credit Call Handling</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Zero Guilt Interruptions</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Emergencies happen. When a verified faculty member or direct contact reaches your line, the system pauses your clock and dynamically logs minutes spent, replenishing your study streak upon completion.
+      </p>
+<!-- Simulated Call Tester Trigger -->
+<div class="pt-2">
+<button class="w-full py-2.5 px-4 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md flex items-center justify-center gap-2 shadow-xs hover:opacity-95 transition-opacity" onclick="simulateCall()">
+<span class="material-symbols-outlined text-[18px]">ring_volume</span>
+<span>Simulate Incoming Urgent Call</span>
+</button>
+</div>
+</div>
+<!-- Simulation Alert Banner (Hidden by default) -->
+<div class="hidden bg-secondary-container text-on-secondary-container p-4 rounded-xl shadow-md space-y-2.5 transition-all" id="simulation-banner">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-secondary-container animate-bounce text-[20px]">phone_in_talk</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider">Active Call Shield Event</span>
+</div>
+<span class="font-label-sm text-label-sm bg-on-secondary-container/10 px-2 py-0.5 rounded-full font-mono">01:42</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-secondary-container">
+        Incoming: <strong>Prof. Eleanor Vance (Thesis Advisor)</strong>. Study timer is temporarily paused. Your streak is safeguarded.
+      </p>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-1.5 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-semibold" onclick="dismissSimulation()">
+          Resume Desk Session &amp; Credit 2m
+        </button>
+</div>
+</div>
+<!-- Logged Records -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Archival Call Ledger</span>
+<span class="font-label-sm text-label-sm text-primary font-medium">3 Recorded Today</span>
+</div>
+<div class="space-y-2">
+<!-- Record 1 -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-primary">call_received</span>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] text-on-surface">Dean's Registrar Desk</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">10:14 AM · Course approval clearance</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm font-semibold text-primary">+4m Credited</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Auto-reconciled</span>
+</div>
+</div>
+<!-- Record 2 -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-secondary">call_missed</span>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] text-on-surface">Unknown Toll Number</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">09:05 AM · Auto-screened by Silent Guard</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface-variant">Silenced</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">No impact</span>
+</div>
+</div>
+<!-- Record 3 -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-primary">call_received</span>
+<div class="flex flex-col">
+<span class="font-title-md text-[14px] text-on-surface">Lab Partner (Julian M.)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Yesterday · Bench server restart</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm font-semibold text-primary">+8m Credited</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">Auto-reconciled</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ================= TAB 3: APP CONTROLS ================= -->
+<section class="hidden flex-col space-y-4" id="pane-controls">
+<!-- Quiet Study Status Overview -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">do_not_disturb_on</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Quiet Study Firewall</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">Enforced</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Curate your intellectual perimeter. Restrict notification pings, throttle non-academic messaging, and channel high-priority dispatches only.
+      </p>
+</div>
+<!-- Toggle Controls List -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Distraction Shield Permissions</span>
+<!-- Control 1 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">notifications_paused</span>
+<div>
+<span class="font-title-md text-[14px] text-on-surface block font-semibold">Strict Monograph Mode</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Suppress all push badges, social media notifications, and banners</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-primary rounded-full transition-colors relative flex items-center px-0.5" onclick="toggleSwitch(this)">
+<span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<!-- Control 2 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">verified_user</span>
+<div>
+<span class="font-title-md text-[14px] text-on-surface block font-semibold">Faculty Whitelist Pass</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Allow calls only from authorized university domain contacts</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-primary rounded-full transition-colors relative flex items-center px-0.5" onclick="toggleSwitch(this)">
+<span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+<!-- Control 3 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">volume_off</span>
+<div>
+<span class="font-title-md text-[14px] text-on-surface block font-semibold">Haptic Chime Only</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Replace audible timer alarms with soft desk vibrations</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-surface-container-highest rounded-full transition-colors relative flex items-center px-0.5" onclick="toggleSwitch(this)">
+<span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transform translate-x-0 transition-transform"></span>
+</button>
+</div>
+<!-- Control 4 -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">browser_updated</span>
+<div>
+<span class="font-title-md text-[14px] text-on-surface block font-semibold">Automated Away Dispatch</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">SMS auto-reply: "In deep seminar focus until 3:30 PM."</span>
+</div>
+</div>
+<button class="w-11 h-6 bg-primary rounded-full transition-colors relative flex items-center px-0.5" onclick="toggleSwitch(this)">
+<span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transform translate-x-5 transition-transform"></span>
+</button>
+</div>
+</div>
+</section>
+<!-- Interactive Logic -->
+<script>
+    function switchFocusTab(tabId) {
+      const panes = ['timer', 'shield', 'controls'];
+      panes.forEach(p => {
+        const paneEl = document.getElementById('pane-' + p);
+        const btnEl = document.getElementById('tab-' + p + '-btn');
+        if (p === tabId) {
+          paneEl.classList.remove('hidden');
+          paneEl.classList.add('flex');
+          btnEl.className = 'flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 bg-surface-container-lowest text-primary shadow-sm font-semibold';
+        } else {
+          paneEl.classList.add('hidden');
+          paneEl.classList.remove('flex');
+          btnEl.className = 'flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg font-label-md text-label-md transition-all duration-200 text-on-surface-variant hover:text-on-surface font-normal';
+        }
+      });
+    }
+
+    let isPaused = false;
+    function toggleTimer() {
+      isPaused = !isPaused;
+      const playIcon = document.getElementById('play-icon');
+      const playText = document.getElementById('play-text');
+      if (isPaused) {
+        playIcon.textContent = 'play_arrow';
+        playText.textContent = 'Resume Focus';
+      } else {
+        playIcon.textContent = 'pause';
+        playText.textContent = 'Pause Focus';
+      }
+    }
+
+    function resetTimer() {
+      document.getElementById('timer-display').textContent = '25:00';
+      const ring = document.getElementById('timer-ring');
+      ring.style.strokeDashoffset = '0';
+      const playIcon = document.getElementById('play-icon');
+      const playText = document.getElementById('play-text');
+      isPaused = true;
+      playIcon.textContent = 'play_arrow';
+      playText.textContent = 'Begin Focus';
+    }
+
+    function setDurationPreset(mins, btn) {
+      document.querySelectorAll('.preset-btn').forEach(b => {
+        b.className = 'preset-btn py-2 px-3 rounded-lg font-label-md text-label-md transition-colors bg-surface-container text-on-surface font-medium hover:bg-surface-container-high flex items-center justify-center gap-1';
+      });
+      btn.className = 'preset-btn py-2 px-3 rounded-lg font-label-md text-label-md transition-colors bg-primary text-on-primary font-semibold shadow-xs flex items-center justify-center gap-1';
+      document.getElementById('timer-display').textContent = mins + ':00';
+      const ring = document.getElementById('timer-ring');
+      ring.style.strokeDashoffset = '0';
+    }
+
+    function simulateCall() {
+      const banner = document.getElementById('simulation-banner');
+      banner.classList.remove('hidden');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function dismissSimulation() {
+      const banner = document.getElementById('simulation-banner');
+      banner.classList.add('hidden');
+      switchFocusTab('timer');
+    }
+
+    function toggleSwitch(btn) {
+      const knob = btn.firstElementChild;
+      const isActive = btn.classList.contains('bg-primary');
+      if (isActive) {
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-surface-container-highest');
+        knob.classList.remove('translate-x-5');
+        knob.classList.add('translate-x-0');
+      } else {
+        btn.classList.remove('bg-surface-container-highest');
+        btn.classList.add('bg-primary');
+        knob.classList.remove('translate-x-0');
+        knob.classList.add('translate-x-5');
+      }
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#fbfbf9]/95 backdrop-blur-md border-t border-[#e5e4de]" data-active-classes="text-primary font-semibold"><div class="grid grid-cols-4 items-center h-16 max-w-md mx-auto px-2"><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">space_dashboard</span><span class="font-label-sm text-[11px]">Home</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="catalogue" href="#"><span class="material-symbols-outlined text-[22px]">local_library</span><span class="font-label-sm text-[11px]">Catalogue</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] transition-colors text-primary font-semibold" data-path="focus" href="#"><span class="material-symbols-outlined text-[22px]">hourglass_top</span><span class="font-label-sm text-[11px]">Focus</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="assistant" href="#"><span class="material-symbols-outlined text-[22px]">chat_bubble</span><span class="font-label-sm text-[11px]">Assistant</span></a></div></nav></body></html>

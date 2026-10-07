@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_tab" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #fbfaf7;
+        color: #161c27;
+      }
+      body {
+        overscroll-behavior-y: none;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+      main > :first-child {
+        margin-top: 0 !important;
+      }
+      main > :last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary-container": "#742505",
+            "secondary-fixed": "#ffdbd0",
+            "on-tertiary": "#ffffff",
+            "secondary-container": "#feddd2",
+            "on-surface": "#161c27",
+            "on-tertiary-fixed-variant": "#3e4943",
+            "on-secondary-fixed": "#390c00",
+            "on-secondary": "#ffffff",
+            "surface-tint": "#1e4738",
+            "inverse-primary": "#a3d0be",
+            "on-primary": "#ffffff",
+            "tertiary-fixed-dim": "#bdcac1",
+            "on-error-container": "#93000a",
+            "primary-fixed": "#beedd9",
+            "surface-container-high": "#ebe9e2",
+            "on-primary-container": "#ffffff",
+            "primary": "#1e4738",
+            "on-secondary-fixed-variant": "#7e2c0c",
+            "surface-variant": "#f0ede6",
+            "error": "#ba1a1a",
+            "surface-container-low": "#f7f5ef",
+            "outline": "#717974",
+            "background": "#fbfaf7",
+            "primary-fixed-dim": "#a3d0be",
+            "outline-variant": "#e5e2d9",
+            "tertiary-container": "#e2ece6",
+            "surface-bright": "#ffffff",
+            "tertiary-fixed": "#d9e6dd",
+            "on-background": "#161c27",
+            "on-tertiary-container": "#183b2e",
+            "error-container": "#fde8e7",
+            "primary-container": "#1e4738",
+            "surface-dim": "#e8e5dc",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-fixed-variant": "#234e40",
+            "tertiary": "#245341",
+            "on-tertiary-fixed": "#131e18",
+            "secondary-fixed-dim": "#ffb59c",
+            "secondary": "#a24522",
+            "surface-container-highest": "#e2ded4",
+            "on-surface-variant": "#575e59",
+            "inverse-surface": "#2a303d",
+            "on-error": "#ffffff",
+            "surface-container": "#f2efe8",
+            "on-primary-fixed": "#002117",
+            "surface": "#fbfaf7",
+            "inverse-on-surface": "#ecf0ff"
+          },
+          fontFamily: {
+            "label-sm": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "body-lg": ["Newsreader", "serif"],
+            "title-md": ["Inter", "sans-serif"],
+            "headline-md": ["Newsreader", "serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "display-lg-mobile": ["Newsreader", "serif"],
+            "headline-lg-mobile": ["Newsreader", "serif"],
+            "display-lg": ["Newsreader", "serif"],
+            "headline-sm": ["Newsreader", "serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "headline-lg": ["Newsreader", "serif"],
+            "numeral-timer": ["Newsreader", "serif"]
+          },
+          fontSize: {
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "500" }],
+            "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "title-md": ["16px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "500" }],
+            "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.02em", fontWeight: "600" }],
+            "numeral-timer": ["3.75rem", { lineHeight: "3.75rem", letterSpacing: "-0.03em", fontWeight: "400" }],
+            "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+            "headline-lg": ["30px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "500" }]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen font-body-md antialiased selection:bg-secondary-container">
+<!-- Scholarly Header Navigation -->
+<header class="fixed top-0 w-full z-50 pt-safe bg-[#fbfaf7]/90 backdrop-blur-md border-b border-[#e8e6df]">
+<div class="h-16 px-4 flex items-center justify-between gap-2 max-w-lg mx-auto">
+<div class="flex items-center gap-2.5">
+<img alt="Smart Study Emblem" class="h-8 w-8 object-contain rounded-md shadow-xs ring-1 ring-[#e8e6df]" src="https://lh3.googleusercontent.com/aida/AEtjO1WPSm-HRoxWKg8LpyOrLN647RTjPVFvgVIqzMnK1I5KSzMS-WLEv-6Hldwblk48UVZ1J0iOaaDJ3hejeDsDcYGKGw2OeLJQIDbnGUAnQswHj3ym-UVgfbuHP-4ZfhfgZXLoie8YdVwP9KRMRVJBTdDYPaT729NgYAX-JnDTBNUiiLF4bMywEx3gS1n5p0vBmadA7hhJvHRMnuqrMy_uArzZt-zsNffGDY3XS3BLOyOrTm6DJjR_mYIIIPI"/>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] tracking-widest uppercase text-primary font-semibold">Smart Study</span>
+<span class="font-headline-sm text-[17px] font-semibold text-on-surface leading-tight font-serif">Focus Timer</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 bg-[#ffffff] border border-[#e8e6df] px-2.5 py-1 rounded-full text-secondary shadow-xs">
+<span class="material-symbols-outlined text-[15px] leading-none text-secondary">local_fire_department</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">5D Streak</span>
+</div>
+<div class="flex items-center gap-1 bg-[#ffffff] border border-[#e8e6df] px-2.5 py-1 rounded-full text-tertiary shadow-xs">
+<span class="material-symbols-outlined text-[15px] leading-none text-primary">toll</span>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">480 CP</span>
+</div>
+<a class="relative flex items-center justify-center rounded-full p-0.5 ml-0.5 ring-1 ring-[#e8e6df]" data-path="student-profile" href="#">
+<img alt="Student Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VGSHcEiIPuGYVW4Nr_5eczaIfYqMibI-MiVy_enTzS0MSuY-5wCun1CKhFNKvNuxsZuo0KeQd-MSqGvkzrFQzjzlv15CKCQGAHSHpbQuDoDLDD2HBhHw0Bo-kzIqBkFNZm2KYAXNvmhvaAU3C4RNM8gfUiZNhNHo_RtvdQc2-uD8KZH2yrlvPztDMcSCRNaeA5fBLnFJuU5rNZMcX3vStyDyrwQkWtcUfHGm-ho6rA6j77I6fG2ibbFCPF"/>
+</a>
+</div>
+</div>
+</header>
+<!-- Main Collegiate Focus Canvas -->
+<main class="flex flex-col relative w-full pt-20 pb-28 min-h-screen max-w-lg mx-auto px-4">
+<div class="flex flex-col w-full gap-4">
+<!-- Interactive Smart Call Simulation Sheet (Refined Collegiate Style) -->
+<div class="hidden transition-all duration-300 ease-out w-full bg-[#ffffff] border border-secondary/30 rounded-2xl p-4 shadow-[0_8px_24px_rgba(30,71,56,0.06)] relative overflow-hidden" id="call-banner">
+<div class="flex items-start justify-between gap-3 relative z-10">
+<div class="flex items-center gap-3 min-w-0">
+<div class="relative flex-shrink-0 w-11 h-11 rounded-full bg-[#faebe6] border border-[#f5cfc4] flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">ring_volume</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-[10.5px] text-secondary uppercase tracking-wider font-semibold">Priority Family Call</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+</div>
+<span class="font-title-md text-title-md text-on-surface truncate">Mom (Mobile)</span>
+<span class="font-body-sm text-on-surface-variant text-[12px]">Approved Contact • ~02:45 min avg</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">verified</span>
+</div>
+<!-- Call Action Matrix -->
+<div class="grid grid-cols-2 gap-2.5 mt-3.5 pt-2 border-t border-[#f0ede6]">
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-surface-variant text-on-surface-variant hover:bg-[#e8e5dc] active:scale-98 transition-all font-label-md text-label-md" id="btn-silence-call">
+<span class="material-symbols-outlined text-[16px]">notifications_paused</span>
+<span>Polite Auto-Reply</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-secondary text-white hover:bg-[#8f3c1d] active:scale-98 transition-all font-label-md text-label-md shadow-xs" id="btn-accept-call">
+<span class="material-symbols-outlined text-[16px]">more_time</span>
+<span class="font-semibold">Answer &amp; Compensate</span>
+</button>
+</div>
+</div>
+<!-- Smart Time Compensation Confirmation Toast -->
+<div class="hidden transition-all duration-300 w-full bg-[#eef6f2] border border-[#cbe4d8] text-[#164032] rounded-2xl p-3.5 flex items-center justify-between gap-3 shadow-xs" id="compensation-toast">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[22px] text-primary">timer_add</span>
+<div class="flex flex-col">
+<span class="font-label-md text-[13px] font-semibold text-[#164032]">Focus Time Preserved</span>
+<span class="font-body-sm text-[12px] text-[#2c5848]">+3:00 min seamlessly credited to study goal</span>
+</div>
+</div>
+<span class="font-label-sm text-[10px] px-2 py-0.5 rounded-md bg-[#ffffff] border border-[#cbe4d8] text-primary uppercase font-bold tracking-wider">Compensated</span>
+</div>
+<!-- Academic Subject Objective Card -->
+<div class="flex flex-col bg-[#ffffff] border border-[#e8e6df] rounded-2xl p-4 gap-2 shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-[11px] tracking-wider uppercase text-primary font-bold">Current Reading Focus</span>
+<div class="flex items-center gap-1 bg-surface-container-low border border-[#e8e6df] px-2.5 py-0.5 rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+<span class="font-label-sm text-[11px]">Quiet Study Mode</span>
+</div>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-serif">CS-402: Distributed Consensus &amp; Raft Algorithm</h2>
+<div class="flex items-center justify-between pt-1 border-t border-[#f3f0e8] text-on-surface-variant font-label-md">
+<div class="flex items-center gap-1.5 text-primary text-[12.5px]">
+<span class="material-symbols-outlined text-[16px]">workspace_premium</span>
+<span>Course Credit: <strong class="text-primary font-semibold">+50 CP Award</strong></span>
+</div>
+<span class="font-label-sm text-body-sm text-[#717974]">Chapter 3 of 7</span>
+</div>
+</div>
+<!-- Duration Selection Rail -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider px-1 text-[11px]">Prescribed Focus Rhythms</span>
+<div class="grid grid-cols-3 gap-2 bg-[#f4f2eb] border border-[#e8e6df] p-1.5 rounded-2xl">
+<button class="duration-pill flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-[#ffffff] text-primary shadow-xs border border-[#e0ddd4] transition-all active:scale-98" data-duration="1455">
+<span class="font-label-md text-label-md font-bold">25 min</span>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Standard Session</span>
+</button>
+<button class="duration-pill flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-transparent text-on-surface-variant transition-all hover:text-on-surface active:scale-98" data-duration="2700">
+<span class="font-label-md text-label-md font-bold">45 min</span>
+<span class="font-label-sm text-[11px] text-[#717974]">Deep Study</span>
+</button>
+<button class="duration-pill flex flex-col items-center justify-center py-2 px-1 rounded-xl bg-transparent text-on-surface-variant transition-all hover:text-on-surface active:scale-98" data-duration="3600">
+<span class="font-label-md text-label-md font-bold">60 min</span>
+<span class="font-label-sm text-[11px] text-[#717974]">Extended Seminar</span>
+</button>
+</div>
+</div>
+<!-- Central Scholarly Chronometer -->
+<div class="flex flex-col items-center justify-center py-2 relative">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Circular Timer Ring -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 240 240">
+<!-- Background Muted Track -->
+<circle class="text-[#ebe8df]" cx="120" cy="120" fill="none" r="102" stroke="currentColor" stroke-width="6"></circle>
+<!-- Progress Arc in Warm Terracotta/Forest Green -->
+<circle class="text-secondary transition-all duration-700 ease-linear" cx="120" cy="120" fill="none" id="timer-ring" r="102" stroke="currentColor" stroke-dasharray="640.88" stroke-dashoffset="36" stroke-linecap="round" stroke-width="6.5"></circle>
+</svg>
+<!-- Center Editorial Readout -->
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+<div class="flex items-center gap-1.5 mb-1 bg-[#ffffff] border border-[#e8e6df] px-3 py-0.5 rounded-full shadow-2xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-[11px] text-primary uppercase tracking-wider font-semibold">Focus Session Active</span>
+</div>
+<div class="font-numeral-timer text-numeral-timer text-[#111827] tracking-tight font-normal select-none" id="timer-display">
+              24:15
+            </div>
+<div class="hidden flex items-center gap-1 text-primary font-label-sm text-[11px] mt-0.5 bg-[#eef6f2] border border-[#cbe4d8] px-2.5 py-0.5 rounded-full" id="bonus-indicator">
+<span class="material-symbols-outlined text-[13px]">add_circle</span>
+<span class="font-semibold">+03:00 Compensated</span>
+</div>
+<span class="font-body-sm text-[12px] text-on-surface-variant max-w-[170px] mt-1 line-clamp-1">
+              Quiet study mode engaged
+            </span>
+</div>
+</div>
+</div>
+<!-- Human-Centric Smart Call Handling Feature Card -->
+<div class="bg-[#ffffff] border border-[#e8e6df] rounded-2xl p-4 flex flex-col gap-3 shadow-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[21px]">call_log</span>
+<span class="font-headline-sm text-[17px] font-semibold text-on-surface font-serif">Smart Call Handling</span>
+</div>
+<span class="font-label-sm text-[10.5px] px-2.5 py-0.5 rounded-full bg-[#faebe6] border border-[#f5cfc4] text-secondary font-semibold">HackVerse 2.0</span>
+</div>
+<p class="font-body-md text-on-surface-variant text-[13.5px] leading-relaxed">
+          Urgent calls with family or study partners shouldn't break your momentum. Smart Study safeguards your study quota by crediting the exact call duration straight back onto the session timer.
+        </p>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-secondary text-white font-label-md text-label-md active:scale-98 transition-transform font-semibold shadow-xs hover:bg-[#8f3c1d]" id="btn-trigger-call">
+<span class="material-symbols-outlined text-[17px]">ring_volume</span>
+<span>Simulate Incoming Call</span>
+</button>
+<button class="flex items-center justify-center p-2.5 rounded-xl bg-[#f4f2eb] border border-[#e8e6df] text-primary hover:bg-[#e8e5dc] active:scale-95 transition-transform" id="btn-toggle-timer" title="Pause or Resume Clock">
+<span class="material-symbols-outlined text-[20px]" id="play-pause-icon">pause</span>
+</button>
+<button class="flex items-center justify-center p-2.5 rounded-xl bg-[#f4f2eb] border border-[#e8e6df] text-primary hover:bg-[#e8e5dc] active:scale-95 transition-transform" id="btn-complete-session" title="Complete Module Early">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+</button>
+</div>
+</div>
+<!-- Calm Distraction Shield Checklist -->
+<div class="flex flex-col bg-[#ffffff] border border-[#e8e6df] rounded-2xl p-4 gap-3 shadow-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-[17px] font-semibold text-on-surface font-serif">Quiet Study Controls</span>
+<span class="font-label-sm text-[11px] text-primary flex items-center gap-1 font-semibold bg-[#eef6f2] border border-[#cbe4d8] px-2 py-0.5 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            Zero Interruption
+          </span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Item 1: Social Apps -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-[#fbfaf7] border border-[#eeebe3]">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#ffffff] border border-[#e8e6df] flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">motion_photos_off</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Social &amp; Feed Apps</span>
+<span class="font-body-sm text-[11.5px] text-[#717974]">Notifications paused</span>
+</div>
+</div>
+<span class="font-label-sm text-[10.5px] px-2.5 py-0.5 rounded-full bg-[#f4f2eb] text-[#575e59] border border-[#e5e2d9] font-medium">Paused</span>
+</div>
+<!-- Item 2: Messaging Apps -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-[#fbfaf7] border border-[#eeebe3]">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#ffffff] border border-[#e8e6df] flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">perm_phone_msg</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Direct Messages &amp; Calls</span>
+<span class="font-body-sm text-[11.5px] text-secondary">Allowed emergency line armed</span>
+</div>
+</div>
+<span class="font-label-sm text-[10.5px] px-2.5 py-0.5 rounded-full bg-[#faebe6] text-secondary border border-[#f5cfc4] font-medium">Screened</span>
+</div>
+<!-- Item 3: Media & Video -->
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-[#fbfaf7] border border-[#eeebe3]">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-[#ffffff] border border-[#e8e6df] flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">volume_off</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Video &amp; Media Streaming</span>
+<span class="font-body-sm text-[11.5px] text-[#717974]">Playback muted</span>
+</div>
+</div>
+<span class="font-label-sm text-[10.5px] px-2.5 py-0.5 rounded-full bg-[#f4f2eb] text-[#575e59] border border-[#e5e2d9] font-medium">Muted</span>
+</div>
+</div>
+<!-- Orderly Session Exit Trigger -->
+<button class="w-full flex items-center justify-center gap-1.5 py-2.5 mt-0.5 rounded-xl bg-transparent border border-[#e8e6df] text-[#8c3c21] hover:bg-[#faebe6]/60 active:scale-98 transition-all font-label-md text-label-md" id="btn-give-up">
+<span class="material-symbols-outlined text-[16px]">logout</span>
+<span>End Session Early (20 CP Penalty)</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Interactive Logic -->
+<script>
+    (function() {
+      let totalSeconds = 1455; // 24:15
+      let maxSeconds = 1500;  // 25:00 baseline
+      let isRunning = true;
+      let timerInterval = null;
+      const circumference = 640.88;
+
+      const timerDisplay = document.getElementById('timer-display');
+      const timerRing = document.getElementById('timer-ring');
+      const bonusIndicator = document.getElementById('bonus-indicator');
+      const callBanner = document.getElementById('call-banner');
+      const compensationToast = document.getElementById('compensation-toast');
+      const playPauseIcon = document.getElementById('play-pause-icon');
+      const btnToggleTimer = document.getElementById('btn-toggle-timer');
+      const btnTriggerCall = document.getElementById('btn-trigger-call');
+      const btnAcceptCall = document.getElementById('btn-accept-call');
+      const btnSilenceCall = document.getElementById('btn-silence-call');
+      const btnCompleteSession = document.getElementById('btn-complete-session');
+      const btnGiveUp = document.getElementById('btn-give-up');
+      const durationPills = document.querySelectorAll('.duration-pill');
+
+      function formatTime(secs) {
+        const m = Math.floor(secs / 60);
+        const s = secs % 60;
+        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      }
+
+      function updateRing() {
+        const progress = Math.max(0, Math.min(1, totalSeconds / maxSeconds));
+        const offset = circumference * (1 - progress);
+        timerRing.style.strokeDashoffset = offset;
+      }
+
+      function tick() {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          timerDisplay.textContent = formatTime(totalSeconds);
+          updateRing();
+        } else {
+          clearInterval(timerInterval);
+          isRunning = false;
+          playPauseIcon.textContent = 'play_arrow';
+          timerDisplay.textContent = "00:00";
+        }
+      }
+
+      function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(tick, 1000);
+        isRunning = true;
+        playPauseIcon.textContent = 'pause';
+      }
+
+      function pauseTimer() {
+        clearInterval(timerInterval);
+        isRunning = false;
+        playPauseIcon.textContent = 'play_arrow';
+      }
+
+      btnToggleTimer.addEventListener('click', () => {
+        if (isRunning) {
+          pauseTimer();
+        } else {
+          startTimer();
+        }
+      });
+
+      // Simulate Call feature
+      btnTriggerCall.addEventListener('click', () => {
+        callBanner.classList.remove('hidden');
+        compensationToast.classList.add('hidden');
+        callBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+
+      // Accept call with time compensation
+      btnAcceptCall.addEventListener('click', () => {
+        callBanner.classList.add('hidden');
+        
+        // Dynamic compensation of +3 minutes (180 secs)
+        totalSeconds += 180;
+        maxSeconds += 180;
+        timerDisplay.textContent = formatTime(totalSeconds);
+        updateRing();
+        
+        bonusIndicator.classList.remove('hidden');
+        compensationToast.classList.remove('hidden');
+
+        setTimeout(() => {
+          compensationToast.classList.add('hidden');
+        }, 5500);
+      });
+
+      // Silence Call
+      btnSilenceCall.addEventListener('click', () => {
+        callBanner.classList.add('hidden');
+      });
+
+      // Duration selection switches
+      durationPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          durationPills.forEach(p => {
+            p.classList.remove('bg-[#ffffff]', 'text-primary', 'shadow-xs', 'border', 'border-[#e0ddd4]');
+            p.classList.add('bg-transparent', 'text-on-surface-variant');
+          });
+          pill.classList.remove('bg-transparent', 'text-on-surface-variant');
+          pill.classList.add('bg-[#ffffff]', 'text-primary', 'shadow-xs', 'border', 'border-[#e0ddd4]');
+
+          const dur = parseInt(pill.getAttribute('data-duration'), 10);
+          maxSeconds = dur;
+          totalSeconds = dur;
+          timerDisplay.textContent = formatTime(totalSeconds);
+          bonusIndicator.classList.add('hidden');
+          updateRing();
+          if (!isRunning) startTimer();
+        });
+      });
+
+      // Complete Session
+      btnCompleteSession.addEventListener('click', () => {
+        pauseTimer();
+        timerDisplay.textContent = "Done!";
+        timerRing.style.strokeDashoffset = '0';
+        bonusIndicator.classList.remove('hidden');
+        bonusIndicator.innerHTML = '<span class="material-symbols-outlined text-[13px]">celebration</span><span>Session Complete: +50 CP Earned</span>';
+      });
+
+      // Early exit confirm
+      btnGiveUp.addEventListener('click', () => {
+        const confirmAbort = confirm("Are you certain you wish to conclude this quiet study period? 20 Academic Coins will be deducted from your module balance.");
+        if (confirmAbort) {
+          pauseTimer();
+          timerDisplay.textContent = "24:15";
+          totalSeconds = 1455;
+          bonusIndicator.classList.add('hidden');
+          alert("Focus session concluded. 20 Academic Coins deducted.");
+        }
+      });
+
+      // Launch timer
+      startTimer();
+      updateRing();
+    })();
+  </script>
+<!-- Bottom Navigation Tab Bar (Light Editorial Aesthetic) -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#fbfaf7]/95 backdrop-blur-md border-t border-[#e8e6df]">
+<div class="flex justify-around items-center h-16 max-w-lg mx-auto px-2">
+<a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="dashboard" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="font-label-sm text-[11px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="catalogue" href="#">
+<span class="material-symbols-outlined text-[22px]">menu_book</span>
+<span class="font-label-sm text-[11px]">Catalogue</span>
+</a>
+<a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-primary font-semibold transition-colors" data-path="focus-timer" href="#">
+<span class="material-symbols-outlined text-[22px]">timelapse</span>
+<span class="font-label-sm text-[11px] font-bold">Focus</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="ai-tutor" href="#">
+<span class="material-symbols-outlined text-[22px]">psychology</span>
+<span class="font-label-sm text-[11px]">AI Tutor</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="rewards" href="#">
+<span class="material-symbols-outlined text-[22px]">military_tech</span>
+<span class="font-label-sm text-[11px]">Rewards</span>
+</a>
+</div>
+</nav>
+</body></html>

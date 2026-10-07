@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbfbf9;color:#161c27;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-secondary-container": "#742505",
+          "secondary-fixed": "#ffdbd0",
+          "on-tertiary": "#ffffff",
+          "secondary-container": "#fd8c65",
+          "on-surface": "#161c27",
+          "on-tertiary-fixed-variant": "#3e4943",
+          "on-secondary-fixed": "#390c00",
+          "on-secondary": "#ffffff",
+          "surface-tint": "#3c6657",
+          "inverse-primary": "#a3d0be",
+          "on-primary": "#ffffff",
+          "tertiary-fixed-dim": "#bdcac1",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#beedd9",
+          "surface-container-high": "#e3e8f9",
+          "on-primary-container": "#91beac",
+          "primary": "#07372a",
+          "on-secondary-fixed-variant": "#7e2c0c",
+          "surface-variant": "#dde2f3",
+          "error": "#ba1a1a",
+          "surface-container-low": "#f1f3ff",
+          "outline": "#717974",
+          "background": "#f9f9ff",
+          "primary-fixed-dim": "#a3d0be",
+          "outline-variant": "#c0c8c3",
+          "tertiary-container": "#3d4942",
+          "surface-bright": "#f9f9ff",
+          "tertiary-fixed": "#d9e6dd",
+          "on-background": "#161c27",
+          "on-tertiary-container": "#abb8af",
+          "error-container": "#ffdad6",
+          "primary-container": "#234e40",
+          "surface-dim": "#d4daea",
+          "surface-container-lowest": "#ffffff",
+          "on-primary-fixed-variant": "#234e40",
+          "tertiary": "#27322d",
+          "on-tertiary-fixed": "#131e18",
+          "secondary-fixed-dim": "#ffb59c",
+          "secondary": "#9d4322",
+          "surface-container-highest": "#dde2f3",
+          "on-surface-variant": "#414845",
+          "inverse-surface": "#2a303d",
+          "on-error": "#ffffff",
+          "surface-container": "#e8eeff",
+          "on-primary-fixed": "#002117",
+          "surface": "#f9f9ff",
+          "inverse-on-surface": "#ecf0ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-lg": "1.5rem",
+          "gutter-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "gutter": "1.5rem",
+          "margin-mobile": "1.25rem",
+          "space-xl": "2.5rem",
+          "space-sm": "0.5rem",
+          "space-md": "1rem",
+          "margin": "3rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "body-md": ["Inter"],
+          "body-lg": ["Newsreader", "serif"],
+          "title-md": ["Inter"],
+          "headline-md": ["Newsreader", "serif"],
+          "label-md": ["Inter"],
+          "display-lg-mobile": ["Newsreader", "serif"],
+          "headline-lg-mobile": ["Newsreader", "serif"],
+          "display-lg": ["Newsreader", "serif"],
+          "headline-sm": ["Newsreader", "serif"],
+          "body-sm": ["Inter"],
+          "headline-lg": ["Newsreader", "serif"]
+        },
+        "fontSize": {
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500"}],
+          "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+          "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}],
+          "display-lg-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+          "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "500"}]
+        }
+      }
+    }
+  };
+</script></head><body class="bg-[#fbfbf9] text-[#161c27] flex flex-col min-h-screen font-body-md"><header class="fixed top-0 w-full z-50 pt-safe bg-[#fbfbf9]/90 backdrop-blur-md border-b border-[#e5e4de]"><div class="h-16 px-4 flex items-center justify-between gap-3"><div class="flex items-center gap-2.5"><img alt="Academic Study Emblem" class="h-8 w-8 rounded-md object-cover border border-[#e2e1db] shadow-xs" src="https://lh3.googleusercontent.com/aida/AEtjO1WPSm-HRoxWKg8LpyOrLN647RTjPVFvgVIqzMnK1I5KSzMS-WLEv-6Hldwblk48UVZ1J0iOaaDJ3hejeDsDcYGKGw2OeLJQIDbnGUAnQswHj3ym-UVgfbuHP-4ZfhfgZXLoie8YdVwP9KRMRVJBTdDYPaT729NgYAX-JnDTBNUiiLF4bMywEx3gS1n5p0vBmadA7hhJvHRMnuqrMy_uArzZt-zsNffGDY3XS3BLOyOrTm6DJjR_mYIIIPI"/><div class="flex flex-col"><span class="font-label-sm text-[10px] tracking-widest uppercase text-primary font-semibold">Faculty Mentor</span><span class="font-headline-sm text-[17px] text-[#161c27] tracking-tight font-serif leading-tight">Study Companion</span></div></div><div class="flex items-center gap-2"><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2.5 py-1 rounded-full text-secondary shadow-xs"><span class="material-symbols-outlined text-[15px] leading-none text-secondary">local_fire_department</span><span class="font-label-sm text-[11px] font-bold">5D Streak</span></div><div class="flex items-center gap-1 bg-white border border-[#e5e4de] px-2.5 py-1 rounded-full text-primary shadow-xs"><span class="material-symbols-outlined text-[15px] leading-none text-primary">auto_stories</span><span class="font-label-sm text-[11px] font-bold">480 CP</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-[#fbfbf9] min-h-screen"><div class="flex flex-col w-full">
+<div class="px-5 pt-4 pb-2">
+<div class="flex items-baseline justify-between mb-1">
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Trinity Term · Week 4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">May 18, 2025</span>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-serif font-normal tracking-tight">
+      Scholastic Reading Desk
+    </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+      Your daytime cadence and critical annotations.
+    </p>
+</div>
+<div class="px-5 mt-3 mb-4">
+<div class="flex p-1 bg-surface-container rounded-full shadow-xs">
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md text-center transition-all duration-200 bg-surface-container-lowest text-primary shadow-xs font-semibold" id="tab-btn-overview" onclick="switchDeskTab('overview')">
+        Overview
+      </button>
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-primary" id="tab-btn-tools" onclick="switchDeskTab('tools')">
+        Interactive Tools
+      </button>
+<button class="flex-1 py-2 rounded-full font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-primary" id="tab-btn-queue" onclick="switchDeskTab('queue')">
+        Study Queue
+      </button>
+</div>
+</div>
+<div class="px-5 space-y-6">
+<section class="flex flex-col space-y-5" id="panel-overview">
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm relative overflow-hidden">
+<div class="flex items-start justify-between mb-4">
+<div>
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed mb-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wider uppercase">Currently In Focus</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-serif">CS-402: Distributed Consensus</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Module III: Byzantine Fault Tolerance in Asynchronous Networks</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[28px] p-2 bg-secondary-fixed/50 rounded-lg">account_tree</span>
+</div>
+<div class="relative w-full h-36 rounded-lg overflow-hidden mb-4 shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Quiet vintage university library reading table with leatherbound ledger open to diagram of mathematical distributed systems, warm brass library lamp glow, cream aged paper texture, soft daylight filter." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuChVR4woQsV0FFOQ1FqVu1lAhbZc-9EyfJv097sg8qlZzP1xhDOf6MGi6NUUY260CiHyNI41c4WNqQystyr8hetjwWsBTp3cKyZ1lqLj-jtSX2ZoaZL92i5ENbiAYFb5Acdi-dF-1iEzSk3ot_CI3qpeyX5IFy_JtcZL6yiBIFINMSsN-KxxPTmUSofmTV3pZxgRugB9uPbANRcnYd0NFqVR-ycsZic1ZMTDsVXj-SRnqZRzmDhS_tg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/30 to-transparent flex items-end p-3">
+<div class="flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span class="font-label-sm text-label-sm">Lecture Dossier &amp; Marginalia (pp. 142–189)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 mb-4">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Reading Velocity</span>
+<span class="font-title-md text-title-md text-on-surface">38 mins logged today</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Target Pace</span>
+<span class="font-title-md text-title-md text-secondary">55 mins required</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 pt-1">
+<button class="flex items-center justify-center gap-2 h-11 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors shadow-xs active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span class="font-label-md text-label-md">Resume Monograph</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-11 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px] text-secondary">style</span>
+<span class="font-label-md text-label-md">Decks (24)</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">fact_check</span>
+<h3 class="font-title-md text-title-md text-on-surface">Daily Milestone Progress</h3>
+</div>
+<span class="font-label-md text-label-md text-primary font-semibold px-2 py-0.5 rounded-full bg-primary-fixed">70% Reached</span>
+</div>
+<div class="flex items-center gap-4 py-2">
+<div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 72 72">
+<circle class="stroke-surface-container-high" cx="36" cy="36" fill="transparent" r="30" stroke-width="6"></circle>
+<circle class="stroke-primary" cx="36" cy="36" fill="transparent" r="30" stroke-dasharray="188.5" stroke-dashoffset="56.55" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-headline-sm text-headline-sm font-serif text-on-surface">70<span class="text-xs">%</span></span>
+</div>
+</div>
+<div class="flex flex-col justify-center flex-1 space-y-1.5">
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Archival Chapters</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3 of 4 done</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 75%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant pt-1">
+                32 minutes remaining to complete your diurnal scholarly quota.
+              </p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">local_fire_department</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface">5-Day Scholarly Cadence</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Best streak: 18 consecutive library days</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-6 rounded-full bg-secondary"></span>
+<span class="w-2 h-6 rounded-full bg-secondary"></span>
+<span class="w-2 h-6 rounded-full bg-secondary"></span>
+<span class="w-2 h-6 rounded-full bg-secondary"></span>
+<span class="w-2 h-6 rounded-full bg-secondary"></span>
+<span class="w-2 h-6 rounded-full bg-surface-container-high"></span>
+<span class="w-2 h-6 rounded-full bg-surface-container-high"></span>
+</div>
+</div>
+</div>
+</section>
+<section class="hidden flex-col space-y-4" id="panel-tools">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-serif">Scholastic Workbench</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Spacious study actions for rigorous research sessions.</p>
+</div>
+<span class="material-symbols-outlined text-primary text-[22px]">handyman</span>
+</div>
+<div class="grid grid-cols-1 gap-3.5 pt-1">
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between group active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shadow-xs">
+<span class="material-symbols-outlined text-[24px]">document_scanner</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Ingest &amp; Extract Notes</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">OCR scan excerpts, manuscript leaves, and PDFs</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between group active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary shadow-xs">
+<span class="material-symbols-outlined text-[24px]">hourglass_empty</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Launch Focus Interval</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Archival chime, 45-minute deep retention blocks</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between group active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary shadow-xs">
+<span class="material-symbols-outlined text-[24px]">psychology_alt</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Consult Socratic Assistant</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Challenge assumptions and test logical proofs</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between group active:scale-[0.99] transition-transform cursor-pointer">
+<div class="flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary shadow-xs">
+<span class="material-symbols-outlined text-[24px]">quiz</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Synthesize Practice Quiz</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Formative retrieval drills tailored to weak topics</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">chevron_right</span>
+</div>
+</div>
+<div class="bg-surface-container rounded-xl p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">lightbulb</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<span class="font-semibold">Mentor Tip:</span> Break Byzantine proofs into discrete lemma cards before attempting end-of-week oral reviews.
+        </p>
+</div>
+</section>
+<section class="hidden flex-col space-y-4" id="panel-queue">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-serif">Curated Study Queue</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ordered syllabus milestones &amp; seminar submissions.</p>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-medium">3 Pending</span>
+</div>
+<div class="space-y-3 pt-1">
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold">Priority 1</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Tomorrow, 14:00</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface pt-1">Raft &amp; Paxos Invariance Proofs</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">CS-402 · Seminar Preparation Leaflet</p>
+</div>
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Est. 45 mins focused deep work</span>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">Open Monograph →</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-semibold">Priority 2</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Thursday, 09:30</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface pt-1">Epistemology of Empirical Logic</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">PHIL-201 · Chapter 4 Translation Review</p>
+</div>
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Est. 60 mins marginalia synthesis</span>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">Review Dossier →</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col space-y-3">
+<div class="flex items-start justify-between">
+<div class="space-y-0.5">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-semibold">Priority 3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Saturday, 18:00</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface pt-1">Linear Algebra: Singular Value Decomp</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">MATH-310 · Problem Set 5 Verification</p>
+</div>
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">functions</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Est. 90 mins analytic calculations</span>
+<button class="font-label-sm text-label-sm text-primary font-semibold hover:underline">Draft Proofs →</button>
+</div>
+</div>
+</div>
+</section>
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm">
+<div class="flex items-center gap-3">
+<img class="w-11 h-11 rounded-lg object-cover shadow-xs shrink-0" data-alt="Sepia engraved portrait sketch of classic academic scholar with parchment and quill pen, vintage editorial style, warm monochrome tone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhkEtT44mHkuUd77DMkCVeKMQ5jOFJc64bRBybhf7tvgMmamCfAQgehuQ4pE5JUyFBTsfN-DhuvjV1ltEMTCJjejDi8soOuDAkbSJN-Uhrsw-K4Fl-FUYJI3sMUpSmfnkbJ-5DmpPH2_IklVJs5n8tRkuDRaedwyp5dCaQt-OtVQCZAqf2NVk_FvdNQpwhPgLukDodwC4kiAO0jeLCjlIy27ufDOlQU1vOu9K97DfXIa-lO-bFokrqmg"/>
+<div class="flex-1 min-w-0">
+<p class="font-headline-sm text-headline-sm font-serif italic text-on-surface leading-snug">
+            “Order is the shape upon which understanding breathes.”
+          </p>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider block mt-1">Bodleian Library Archival Motto</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function switchDeskTab(tabKey) {
+      const panels = {
+        overview: document.getElementById('panel-overview'),
+        tools: document.getElementById('panel-tools'),
+        queue: document.getElementById('panel-queue')
+      };
+
+      const buttons = {
+        overview: document.getElementById('tab-btn-overview'),
+        tools: document.getElementById('tab-btn-tools'),
+        queue: document.getElementById('tab-btn-queue')
+      };
+
+      Object.keys(panels).forEach(key => {
+        if (key === tabKey) {
+          panels[key].classList.remove('hidden');
+          panels[key].classList.add('flex');
+          buttons[key].className = 'flex-1 py-2 rounded-full font-label-md text-label-md text-center transition-all duration-200 bg-surface-container-lowest text-primary shadow-xs font-semibold';
+        } else {
+          panels[key].classList.add('hidden');
+          panels[key].classList.remove('flex');
+          buttons[key].className = 'flex-1 py-2 rounded-full font-label-md text-label-md text-center transition-all duration-200 text-on-surface-variant hover:text-primary';
+        }
+      });
+    }
+  </script>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-[#fbfbf9]/95 backdrop-blur-md border-t border-[#e5e4de]" data-active-classes="text-primary font-semibold"><div class="grid grid-cols-4 items-center h-16 max-w-md mx-auto px-2"><a aria-current="page" class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] transition-colors text-primary font-semibold" data-path="home" href="#"><span class="material-symbols-outlined text-[22px]">space_dashboard</span><span class="font-label-sm text-[11px]">Home</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="catalogue" href="#"><span class="material-symbols-outlined text-[22px]">local_library</span><span class="font-label-sm text-[11px]">Catalogue</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="focus" href="#"><span class="material-symbols-outlined text-[22px]">hourglass_top</span><span class="font-label-sm text-[11px]">Focus</span></a><a class="flex flex-col items-center justify-center gap-1 min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-primary transition-colors" data-path="assistant" href="#"><span class="material-symbols-outlined text-[22px]">chat_bubble</span><span class="font-label-sm text-[11px]">Assistant</span></a></div></nav></body></html>

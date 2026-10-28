@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { sound } from '../utils/audio';
 
 interface NavbarProps {
@@ -7,6 +7,7 @@ interface NavbarProps {
   onOpenUpload: () => void;
   isAmbientPlaying: boolean;
   setIsAmbientPlaying: (val: boolean) => void;
+  onSignOut?: () => Promise<void>;
   activeTab: 'home' | 'catalogue' | 'focus' | 'assistant' | 'rewards';
   setActiveTab: (tab: 'home' | 'catalogue' | 'focus' | 'assistant' | 'rewards') => void;
 }
@@ -17,13 +18,26 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenUpload,
   isAmbientPlaying,
   setIsAmbientPlaying,
+  onSignOut,
   activeTab,
   setActiveTab
 }) => {
+  const [signOutError, setSignOutError] = useState('');
+
   const toggleSound = () => {
     const isPlaying = sound.toggleAmbientSound();
     setIsAmbientPlaying(isPlaying);
     sound.playClick();
+  };
+
+  const handleSignOut = async () => {
+    if (!onSignOut) return;
+    setSignOutError('');
+    try {
+      await onSignOut();
+    } catch (error) {
+      setSignOutError(error instanceof Error ? error.message : 'Could not sign out. Please try again.');
+    }
   };
 
   return (
@@ -151,6 +165,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               {isAmbientPlaying ? 'volume_up' : 'volume_off'}
             </span>
           </button>
+
+          {onSignOut && (
+            <>
+              <button
+                aria-label="Sign out"
+                onClick={() => { sound.playClick(); void handleSignOut(); }}
+                title="Sign out"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e5e4de] bg-white text-on-surface-variant text-xs transition-colors hover:bg-[#f5f4ef] hover:text-primary"
+              >
+                <span className="material-symbols-outlined text-[16px]">logout</span>
+              </button>
+              {signOutError && (
+                <span className="max-w-28 text-[10px] text-red-700" role="alert">
+                  {signOutError}
+                </span>
+              )}
+            </>
+          )}
 
           {/* Ingest Notes Quick Action */}
           <button

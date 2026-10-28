@@ -9,13 +9,39 @@ import { RewardsStore } from './components/RewardsStore';
 import { MockTestModal } from './components/MockTestModal';
 import { UploadModal } from './components/UploadModal';
 import { BottomNav } from './components/BottomNav';
+import { AuthPage } from './components/AuthPage';
+import { getAuthUser, signOut as signOutUser } from './services/authService';
 
 import { INITIAL_CATALOGUE } from './data/mockCatalogue';
 import { INITIAL_REWARDS, INITIAL_TRANSACTIONS } from './data/rewardsData';
 import { MOCK_TESTS_DATABASE } from './data/mockTests';
+import type { AuthUser } from './services/authService';
 import type { CatalogueItem, FocusSessionLog, RewardItem, RewardTransaction, MockQuestion } from './types';
 
 export function App() {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [session, setSession] = useState<AuthUser | null>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [authError, setAuthError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+    getAuthUser().then((user) => {
+      if (!isMounted) return;
+      setSession(user);
+      setAuthError('');
+    }).catch((error: unknown) => {
+      if (!isMounted) return;
+      setAuthError(error instanceof Error ? error.message : 'Could not restore your session.');
+    }).finally(() => {
+      if (isMounted) setIsAuthLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   // Navigation State
   const [activeTab, setActiveTab] = useState<'home' | 'catalogue' | 'focus' | 'assistant' | 'rewards'>('home');
   const [selectedDetailItem, setSelectedDetailItem] = useState<CatalogueItem | null>(null);
@@ -114,6 +140,11 @@ export function App() {
     handleAwardPoints(30, `Ingested: ${newItem.title}`);
   };
 
+  const handleArchiveCatalogueItem = (itemId: string) => {
+    setCatalogueItems(prev => prev.filter(item => item.id !== itemId));
+    setSelectedDetailItem(current => current?.id === itemId ? null : current);
+  };
+
   // Toggle chapter completion
   const handleToggleChapter = (itemId: string, chapterId: string) => {
     setCatalogueItems(prev => prev.map(item => {
@@ -157,6 +188,24 @@ export function App() {
     handleAwardPoints(log.pointsEarned, `Focus Session: ${log.subjectTitle} (${log.plannedMinutes}m)`);
   };
 
+  if (isAuthLoading) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-[#fbfbf9] text-[#07372a]">
+        <p role="status">Restoring your session…</p>
+      </main>
+    );
+  }
+
+  if (!session && !isPreviewOpen) {
+    return (
+      <AuthPage
+        initialMessage={authError}
+        onAuthSuccess={setSession}
+        onOpenPreview={() => setIsPreviewOpen(true)}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#fbfbf9] text-[#161c27] flex flex-col font-sans">
       
@@ -172,6 +221,11 @@ export function App() {
         onOpenUpload={() => setIsUploadOpen(true)}
         isAmbientPlaying={isAmbientPlaying}
         setIsAmbientPlaying={setIsAmbientPlaying}
+        onSignOut={session ? async () => {
+          await signOutUser();
+          setSession(null);
+          setIsPreviewOpen(false);
+        } : undefined}
       />
 
       {/* Main Scholastic Content Desk */}
@@ -215,6 +269,7 @@ export function App() {
               onStartFocus={handleStartFocusFromItem}
               onStartMockTest={handleStartMockTestFromItem}
               onOpenUpload={() => setIsUploadOpen(true)}
+              onArchiveItem={handleArchiveCatalogueItem}
             />
           )
         )}
@@ -276,6 +331,7 @@ export function App() {
       {/* Auto Mock Test Modal */}
       {mockTestSubject && (
         <MockTestModal
+          key={mockTestSubject.id}
           item={mockTestSubject}
           onClose={() => setMockTestSubject(null)}
           onAwardPoints={handleAwardPoints}

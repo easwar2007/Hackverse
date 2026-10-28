@@ -21,6 +21,7 @@ export const RewardsStore: React.FC<RewardsStoreProps> = ({
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [activeSocialPassTimer, setActiveSocialPassTimer] = useState<number | null>(null);
+  const [claimMessage, setClaimMessage] = useState('');
 
   const tier = getScholarTier(creditPoints);
 
@@ -39,10 +40,11 @@ export const RewardsStore: React.FC<RewardsStoreProps> = ({
 
   const handleClaim = (reward: RewardItem) => {
     if (creditPoints < reward.cost) {
-      alert(`⚠️ Insufficient Credit Points! You need ${reward.cost - creditPoints} more CP. Complete focus intervals or mock quizzes to earn more.`);
+      setClaimMessage(`You need ${reward.cost - creditPoints} more CP to redeem ${reward.title}. Complete a focus session or mock quiz to earn more.`);
       return;
     }
 
+    setClaimMessage(`${reward.title} redeemed.`);
     sound.playReward();
     try {
       confetti({
@@ -213,6 +215,7 @@ export const RewardsStore: React.FC<RewardsStoreProps> = ({
               Exchange your verified study credits for study passes, ambient audio presets, and academic aids.
             </p>
           </div>
+          {claimMessage && <p role="status" className="rounded-lg bg-[#f0f7f4] px-3 py-2 text-xs text-primary">{claimMessage}</p>}
 
           {/* Category Filter Pills */}
           <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-[#e5e4de] shadow-xs self-start sm:self-auto">

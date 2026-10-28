@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import type { CatalogueItem, MockQuestion, LanguageCode } from '../types';
+import type { CatalogueItem, LanguageCode } from '../types';
 import { getQuestionsForSubject } from '../data/mockTests';
 import { sound } from '../utils/audio';
 
@@ -17,23 +17,13 @@ export const MockTestModal: React.FC<MockTestModalProps> = ({
   onAwardPoints,
   onGoToRewards
 }) => {
-  const [questions, setQuestions] = useState<MockQuestion[]>([]);
+  const questions = getQuestionsForSubject(item.id);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const [explanationLang, setExplanationLang] = useState<LanguageCode>('en');
-
-  useEffect(() => {
-    const list = getQuestionsForSubject(item.id);
-    setQuestions(list);
-    setCurrentIndex(0);
-    setScore(0);
-    setIsFinished(false);
-    setSelectedOption(null);
-    setIsAnswered(false);
-  }, [item]);
 
   const currentQ = questions[currentIndex];
 

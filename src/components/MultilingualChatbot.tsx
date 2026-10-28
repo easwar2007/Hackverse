@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import type { LanguageCode } from '../types';
 import { multilingualSnippets, getSmartReply } from '../data/chatbotKnowledge';
 import { askSocraticTutorBackend } from '../services/apiService';
@@ -15,6 +15,16 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
   onEarnCredits,
   onStartQuiz
 }) => {
+  type SpeechRecognitionResult = { transcript: string };
+  type SpeechRecognitionLike = {
+    lang: string;
+    interimResults: boolean;
+    onresult: ((event: { results: ArrayLike<ArrayLike<SpeechRecognitionResult>> }) => void) | null;
+    onerror: ((event: { error: string }) => void) | null;
+    onend: (() => void) | null;
+    start: () => void;
+    stop: () => void;
+  };
   const [selectedLang, setSelectedLang] = useState<LanguageCode>('en');
   const [selectedCourse, setSelectedCourse] = useState<string>(
     initialTopic || 'CS-402: Distributed Consensus & Raft'
@@ -23,12 +33,20 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [isVoiceActive, setIsVoiceActive] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
-  const [savedNotes, setSavedNotes] = useState<string[]>([]);
+  const [savedNotes, setSavedNotes] = useState<string[]>(() => {
+    const saved = localStorage.getItem('hackverse_saved_notes');
+    return saved ? JSON.parse(saved) as string[] : [];
+  });
   const [userQuery, setUserQuery] = useState(
     'Can you explain Raft Leader Election simply? What happens during a split vote?'
   );
   const [customReply, setCustomReply] = useState<string | null>(null);
   const [activeModeTag, setActiveModeTag] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<'Helpful' | 'Needs improvement' | null>(null);
+  const [notice, setNotice] = useState('');
+  const [academicDepth, setAcademicDepth] = useState<'Foundational' | 'Graduate' | 'Research'>('Graduate');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   // Available courses for context
   const availableCourses = [
@@ -48,9 +66,10 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
         const res = await askSocraticTutorBackend(userQuery, selectedCourse, lang);
         setCustomReply(res.text);
         setActiveModeTag(res.modeTag);
-      } catch (_err) {
+      } catch (error) {
         const smartResult = getSmartReply(userQuery, lang, selectedCourse);
         setCustomReply(smartResult.reply);
+      setNotice(error instanceof Error ? `Tutor service unavailable; showing a local response. ${error.message}` : 'Tutor service unavailable; showing a local response.');
       } finally {
         setIsThinking(false);
       }
@@ -71,9 +90,11 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
   const handleSubmit = async () => {
     if (!inputValue.trim()) return;
     sound.playClick();
-    const q = inputValue.trim();
+    const q = `${inputValue.trim()}\n\nPlease answer at ${academicDepth} level.`;
     setUserQuery(q);
     setInputValue('');
+    setFeedback(null);
+    setNotice('');
     setIsThinking(true);
 
     try {
@@ -95,7 +116,7 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
   const handleReadAloud = () => {
     sound.playClick();
     if (!('speechSynthesis' in window)) {
-      alert('Speech synthesis is not supported on this browser.');
+      setNotice('Read aloud is not supported in this browser.');
       return;
     }
 
@@ -116,20 +137,75 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
     window.speechSynthesis.speak(utterance);
   };
 
+  const handleAttachment = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+
+    if (file.type.startsWith('text/') || /\.(txt|md|csv)$/i.test(file.name)) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const content = String(reader.result || '').slice(0, 6000);
+        setInputValue(value => `${value}${value ? '\n\n' : ''}Please explain these attached notes (${file.name}):\n${content}`);
+        setNotice(content.length >= 6000 ? 'Attached text was limited to its first 6,000 characters.' : `${file.name} added to your question.`);
+      };
+      reader.onerror = () => setNotice(`Could not read ${file.name}. Please try another file.`);
+      reader.readAsText(file);
+      return;
+    }
+    setNotice(`${file.name} selected. This tutor currently accepts text notes only; use Ingest to process PDFs or slides.`);
+  };
+
   const handleSaveNote = () => {
     sound.playClick();
     if (!savedNotes.includes(userQuery)) {
-      setSavedNotes(prev => [...prev, userQuery]);
+      const updatedNotes = [...savedNotes, userQuery];
+      setSavedNotes(updatedNotes);
+      localStorage.setItem('hackverse_saved_notes', JSON.stringify(updatedNotes));
       if (onEarnCredits) onEarnCredits(10);
-      alert('✅ Academic note saved to your Study Catalogue Binder! (+10 CP awarded)');
+      setNotice('Note saved to this browser’s Study Catalogue Binder. +10 CP awarded.');
     } else {
-      alert('Note is already saved in your binder.');
+      setNotice('This note is already saved in your binder.');
     }
   };
 
   const handleToggleVoice = () => {
     sound.playClick();
-    setIsVoiceActive(!isVoiceActive);
+    if (isVoiceActive) {
+      recognitionRef.current?.stop();
+      setIsVoiceActive(false);
+      return;
+    }
+    const speechWindow = window as Window & {
+      SpeechRecognition?: new () => SpeechRecognitionLike;
+      webkitSpeechRecognition?: new () => SpeechRecognitionLike;
+    };
+    const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
+    if (!Recognition) {
+      setNotice('Voice input is not supported in this browser. Type your question instead.');
+      return;
+    }
+    const recognition = new Recognition();
+    recognition.lang = selectedLang === 'ta' ? 'ta-IN' : selectedLang === 'hi' ? 'hi-IN' : 'en-IN';
+    recognition.interimResults = false;
+    recognition.onresult = event => {
+      const transcript = event.results[0]?.[0]?.transcript;
+      if (transcript) setInputValue(value => `${value}${value ? ' ' : ''}${transcript}`);
+    };
+    recognition.onerror = event => {
+      setNotice(`Voice input failed: ${event.error}. You can still type your question.`);
+      setIsVoiceActive(false);
+    };
+    recognition.onend = () => setIsVoiceActive(false);
+    recognitionRef.current = recognition;
+    try {
+      recognition.start();
+      setIsVoiceActive(true);
+      setNotice('Listening… speak your question.');
+    } catch (error) {
+      setIsVoiceActive(false);
+      setNotice(error instanceof Error ? error.message : 'Could not start voice input.');
+    }
   };
 
   const currentSnippet = multilingualSnippets[selectedLang] || multilingualSnippets.en;
@@ -277,6 +353,19 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
         <span className="font-label-sm text-[11px] text-outline">Bilingual Gloss Active</span>
       </div>
 
+      {savedNotes.length > 0 && (
+        <details className="rounded-xl border border-[#e5e4de] bg-white p-3">
+          <summary className="cursor-pointer text-xs font-semibold text-primary">
+            Saved Study Notes ({savedNotes.length})
+          </summary>
+          <ul className="mt-2 space-y-2">
+            {savedNotes.map((note, index) => (
+              <li key={`${index}-${note}`} className="rounded-lg bg-[#fbfbf9] p-2 text-xs text-on-surface-variant">{note}</li>
+            ))}
+          </ul>
+        </details>
+      )}
+
       {/* Chat History Stream */}
       <div className="flex flex-col space-y-3.5">
         
@@ -377,14 +466,17 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
             <div className="flex items-center justify-between px-1">
               <div className="flex items-center gap-1">
                 <button 
-                  onClick={() => sound.playClick()} 
+                  aria-pressed={feedback === 'Helpful'}
+                  onClick={() => { sound.playClick(); setFeedback('Helpful'); }}
                   className="p-1 px-2 rounded-md text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 text-[11px] hover:bg-white border border-transparent hover:border-[#e5e4de]"
                 >
                   <span className="material-symbols-outlined text-[15px]">thumb_up</span>
                   <span>Helpful</span>
                 </button>
                 <button 
-                  onClick={() => sound.playClick()} 
+                  aria-label="Mark answer as needing improvement"
+                  aria-pressed={feedback === 'Needs improvement'}
+                  onClick={() => { sound.playClick(); setFeedback('Needs improvement'); }}
                   className="p-1 px-1.5 rounded-md text-on-surface-variant hover:text-error transition-colors flex items-center gap-1 text-[11px] hover:bg-white border border-transparent hover:border-[#e5e4de]"
                 >
                   <span className="material-symbols-outlined text-[15px]">thumb_down</span>
@@ -398,6 +490,7 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
                 </button>
               </div>
 
+              {feedback && <span role="status" className="text-[10px] text-on-surface-variant">Feedback recorded: {feedback}.</span>}
               <span className="font-label-sm text-[11px] text-primary font-semibold flex items-center gap-1 bg-[#eaf4f0] border border-[#d2e8dd] px-2 py-0.5 rounded-full">
                 <span className="material-symbols-outlined text-[13px]">military_tech</span> +15 Study CP Earned
               </span>
@@ -451,6 +544,13 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
 
       {/* Refined Editorial Paper Input Deck */}
       <div className="bg-white border border-[#e5e4de] p-2.5 rounded-2xl shadow-xs space-y-2">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".txt,.md,.csv,.pdf,.ppt,.pptx,image/*"
+          className="hidden"
+          onChange={handleAttachment}
+        />
         {/* Active Context Indicator Inside Bar */}
         <div className="flex items-center justify-between px-1.5 text-on-surface-variant">
           <div className="flex items-center gap-1.5">
@@ -467,7 +567,7 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
           <button 
             className="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md"
             title="Attach lecture note or diagram"
-            onClick={() => sound.playClick()}
+            onClick={() => { sound.playClick(); fileInputRef.current?.click(); }}
           >
             <span className="material-symbols-outlined text-[19px]">add_circle</span>
           </button>
@@ -507,14 +607,17 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
         {/* Quick Tool Attachments Row */}
         <div className="flex items-center gap-1.5 px-0.5 text-on-surface-variant overflow-x-auto no-scrollbar">
           <button 
-            onClick={() => { sound.playClick(); alert('📸 Camera OCR: Snap lecture slides or formulas to transcribe.'); }}
+            onClick={() => { sound.playClick(); fileInputRef.current?.click(); }}
             className="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0"
           >
             <span className="material-symbols-outlined text-[13px] text-primary">photo_camera</span>
             <span>Snap Diagram</span>
           </button>
           <button 
-            onClick={() => { sound.playClick(); alert('📖 Linked to Syllabus Reference (Distributed Log Replication).'); }}
+            onClick={() => {
+              sound.playClick();
+              setInputValue(`Explain the syllabus reference for ${selectedCourse}, page 14, including the key ideas and exam takeaways.`);
+            }}
             className="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0"
           >
             <span className="material-symbols-outlined text-[13px] text-secondary">auto_stories</span>
@@ -528,13 +631,18 @@ export const MultilingualChatbot: React.FC<MultilingualChatbotProps> = ({
             <span>Pronounce Terms</span>
           </button>
           <button 
-            onClick={() => { sound.playClick(); alert('⚙️ Academic depth set to Graduate Seminar level.'); }}
+            onClick={() => {
+              sound.playClick();
+              setAcademicDepth(current => current === 'Foundational' ? 'Graduate' : current === 'Graduate' ? 'Research' : 'Foundational');
+              setNotice(`Academic depth set to ${academicDepth === 'Foundational' ? 'Graduate' : academicDepth === 'Graduate' ? 'Research' : 'Foundational'}.`);
+            }}
             className="flex items-center gap-1 px-2 py-1 rounded-md bg-[#f7f6f0] border border-[#e8e7df] font-label-sm text-[11px] hover:text-on-surface shrink-0"
           >
             <span className="material-symbols-outlined text-[13px] text-outline">tune</span>
-            <span>Academic Depth</span>
+            <span>Depth: {academicDepth}</span>
           </button>
         </div>
+        {notice && <p role="status" className="px-1 text-xs text-on-surface-variant">{notice}</p>}
       </div>
 
     </div>

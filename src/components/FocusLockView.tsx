@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { CatalogueItem, FocusSessionLog } from '../types';
 import { sound } from '../utils/audio';
 
@@ -27,7 +27,8 @@ export const FocusLockView: React.FC<FocusLockViewProps> = ({
   const [activeFocusTab, setActiveFocusTab] = useState<'timer' | 'shield' | 'controls'>('timer');
   
   // Subject & Timing State
-  const [targetSubject, setTargetSubject] = useState<CatalogueItem>(selectedItem || catalogueItems[0]);
+  const [subjectId, setSubjectId] = useState<string>(() => selectedItem?.id ?? catalogueItems[0]?.id ?? '');
+  const targetSubject = catalogueItems.find(item => item.id === subjectId) ?? selectedItem ?? catalogueItems[0];
   const [durationMinutes, setDurationMinutes] = useState<number>(25);
   const [secondsRemaining, setSecondsRemaining] = useState<number>(25 * 60);
   const [originalTotalSeconds, setOriginalTotalSeconds] = useState<number>(25 * 60);
@@ -72,31 +73,46 @@ export const FocusLockView: React.FC<FocusLockViewProps> = ({
     autoDispatch: true
   });
 
-  // Sync selected subject
-  useEffect(() => {
-    if (selectedItem) {
-      setTargetSubject(selectedItem);
+  const handleCompleteSession = useCallback(() => {
+    if (!targetSubject) {
+      return;
     }
-  }, [selectedItem]);
+    sound.playVictory();
+    setIsActive(false);
+    setIsFocusLocked(false);
+    setSessionCompleted(true);
+
+    const log: FocusSessionLog = {
+      id: `focus-${Date.now()}`,
+      catalogueId: targetSubject.id,
+      subjectTitle: targetSubject.title,
+      plannedMinutes: durationMinutes,
+      actualFocusMinutes: durationMinutes,
+      interruptionMinutes: Math.round(callInterruptionSecs / 60),
+      callCount,
+      callExtensionMinutes: Math.round(callInterruptionSecs / 60),
+      completedAt: 'Just now',
+      pointsEarned: 50
+    };
+
+    onSessionComplete(log);
+  }, [targetSubject, durationMinutes, callInterruptionSecs, callCount, onSessionComplete, setIsFocusLocked]);
 
   // Main Timer Countdown
   useEffect(() => {
     let timer: number | null = null;
-    if (isActive && !isSimulationActive && secondsRemaining > 0) {
+    if (isActive && !isSimulationActive) {
+      let remaining = secondsRemaining;
       timer = window.setInterval(() => {
-        setSecondsRemaining(prev => {
-          if (prev <= 1) {
-            handleCompleteSession();
-            return 0;
-          }
-          return prev - 1;
-        });
+        remaining = Math.max(0, remaining - 1);
+        setSecondsRemaining(remaining);
+        if (remaining === 0) handleCompleteSession();
       }, 1000);
     }
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [isActive, isSimulationActive, secondsRemaining]);
+  }, [isActive, isSimulationActive, secondsRemaining, handleCompleteSession]);
 
   // Call duration counter
   useEffect(() => {
@@ -136,28 +152,6 @@ export const FocusLockView: React.FC<FocusLockViewProps> = ({
     setOriginalTotalSeconds(durationMinutes * 60);
     setIsSimulationActive(false);
     sound.stopPhoneRing();
-  };
-
-  const handleCompleteSession = () => {
-    sound.playVictory();
-    setIsActive(false);
-    setIsFocusLocked(false);
-    setSessionCompleted(true);
-
-    const log: FocusSessionLog = {
-      id: `focus-${Date.now()}`,
-      catalogueId: targetSubject.id,
-      subjectTitle: targetSubject.title,
-      plannedMinutes: durationMinutes,
-      actualFocusMinutes: durationMinutes,
-      interruptionMinutes: Math.round(callInterruptionSecs / 60),
-      callCount: callCount,
-      callExtensionMinutes: Math.round(callInterruptionSecs / 60),
-      completedAt: 'Just now',
-      pointsEarned: 50
-    };
-
-    onSessionComplete(log);
   };
 
   const handleSetPreset = (mins: number) => {
@@ -209,6 +203,10 @@ export const FocusLockView: React.FC<FocusLockViewProps> = ({
   // Ring progress
   const progressRatio = Math.max(0, Math.min(1, (originalTotalSeconds - secondsRemaining) / originalTotalSeconds));
   const dashOffset = 640.88 * progressRatio;
+
+  if (!targetSubject) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col w-full pb-16 space-y-5 max-w-4xl mx-auto">
@@ -291,10 +289,10 @@ export const FocusLockView: React.FC<FocusLockViewProps> = ({
             </div>
 
             <select
-              value={targetSubject.id}
+              value={targetSubject?.id ?? ''}
               onChange={(e) => {
                 const found = catalogueItems.find(c => c.id === e.target.value);
-                if (found) setTargetSubject(found);
+                if (found) setSubjectId(found.id);
               }}
               className="rounded-lg bg-[#f5f4ef] border border-[#e5e4de] text-[12px] font-semibold text-on-surface p-1.5 focus:outline-none shrink-0"
             >

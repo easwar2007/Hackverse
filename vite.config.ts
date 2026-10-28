@@ -1,14 +1,43 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import type { Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { handleIngestRequest, handleChatRequest } from './src/server/backendHandler.ts'
+import { handleAuthRequest } from './src/server/authHandler.ts'
 
-function backendApiPlugin(): Plugin {
+function backendApiPlugin(authConfig: { mongoUri?: string; databaseName?: string; isProduction: boolean }): Plugin {
   return {
     name: 'backend-api-middleware',
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
+        const path = new URL(req.url || '/', 'http://localhost').pathname
+        if (path.startsWith('/api/auth/')) {
+          let body: unknown
+          if (req.method === 'POST') {
+            let bodyStr = ''
+            try {
+              for await (const chunk of req) {
+                bodyStr += chunk.toString()
+                if (bodyStr.length > 16_384) {
+                  res.statusCode = 413
+                  res.setHeader('Content-Type', 'application/json')
+                  res.end(JSON.stringify({ error: 'Request body is too large.' }))
+                  return
+                }
+              }
+              body = bodyStr ? JSON.parse(bodyStr) : {}
+            } catch {
+              res.statusCode = 400
+              res.setHeader('Content-Type', 'application/json')
+              res.end(JSON.stringify({ error: 'Invalid JSON request body.' }))
+              return
+            }
+          }
+
+          const handled = await handleAuthRequest(req, res, path, body, authConfig)
+          if (handled) return
+        }
+
         if (req.url === '/api/ingest' && req.method === 'POST') {
           let bodyStr = '';
           req.on('data', chunk => { bodyStr += chunk; });
@@ -61,11 +90,17 @@ function backendApiPlugin(): Plugin {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [
-    backendApiPlugin(),
-    react(),
-    tailwindcss(),
-  ],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    plugins: [
+      backendApiPlugin({
+        mongoUri: env.MONGODB_URI,
+        databaseName: env.MONGODB_DB,
+        isProduction: mode === 'production',
+      }),
+      react(),
+      tailwindcss(),
+    ],
+  }
 })
-

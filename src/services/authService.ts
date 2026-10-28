@@ -10,17 +10,9 @@ const USER_STORAGE_KEY = 'hackverse_local_users';
 function readLocalUsers(): Record<string, { id: string; name: string; email: string; password: string }> {
   try {
     const stored = localStorage.getItem(USER_STORAGE_KEY);
-    if (!stored) {
-      const demoUser = {
-        id: 'demo-user',
-        name: 'Demo User',
-        email: 'demo@hackverse.app',
-        password: 'Password123',
-      };
-      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify({ [demoUser.email]: demoUser }));
-      return { [demoUser.email]: demoUser };
-    }
-    return JSON.parse(stored) as Record<string, { id: string; name: string; email: string; password: string }>;
+    return stored
+      ? JSON.parse(stored) as Record<string, { id: string; name: string; email: string; password: string }>
+      : {};
   } catch {
     return {};
   }

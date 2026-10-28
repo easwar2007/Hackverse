@@ -33,6 +33,17 @@ interface PublicUser {
   email: string;
 }
 
+interface MemoryCollection<T> {
+  createIndex: (...args: unknown[]) => Promise<void>;
+  findOne: (query: Record<string, unknown>) => Promise<(T & { _id?: ObjectId | string }) | null>;
+  insertOne: (document: T) => Promise<{ insertedId: ObjectId | string }>;
+  deleteOne: (query: Record<string, unknown>) => Promise<{ deletedCount: number }>;
+}
+
+interface MemoryDatabase {
+  collection: <T>(name: string) => MemoryCollection<T>;
+}
+
 interface AuthConfig {
   mongoUri?: string;
   databaseName?: string;
@@ -59,6 +70,59 @@ class AuthError extends Error {
 }
 
 let clientPromise: Promise<MongoClient> | undefined;
+
+function createMemoryDatabase(): MemoryDatabase {
+  const users = new Map<string, Record<string, unknown>>();
+  const sessions = new Map<string, Record<string, unknown>>();
+
+  return {
+    collection<T>(name: string): MemoryCollection<T> {
+      const collectionData = (name === 'users' ? users : sessions) as Map<string, Record<string, unknown>>;
+
+      return {
+        async createIndex() {
+          return;
+        },
+        async findOne(query: Record<string, unknown>) {
+          const entries = Array.from(collectionData.values() as Iterable<Record<string, unknown>>);
+          const match = entries.find((document) => {
+            return Object.entries(query).every(([key, value]) => {
+              const currentValue = document[key];
+              if (value instanceof Date && currentValue instanceof Date) {
+                return value.getTime() === currentValue.getTime();
+              }
+              return currentValue === value;
+            });
+          });
+          return (match as (T & { _id?: ObjectId | string }) | null) ?? null;
+        },
+        async insertOne(document: T) {
+          const record = document as Record<string, unknown> & { _id?: ObjectId | string };
+          const id = typeof record._id === 'string' ? record._id : `memory-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+          const stored = { ...record, _id: id } as Record<string, unknown>;
+          collectionData.set(id, stored);
+          return { insertedId: id };
+        },
+        async deleteOne(query: Record<string, unknown>) {
+          for (const [key, entry] of Array.from(collectionData.entries())) {
+            const matches = Object.entries(query).every(([queryKey, queryValue]) => {
+              const currentValue = entry[queryKey];
+              if (queryValue instanceof Date && currentValue instanceof Date) {
+                return queryValue.getTime() === currentValue.getTime();
+              }
+              return currentValue === queryValue;
+            });
+            if (matches) {
+              collectionData.delete(key);
+              return { deletedCount: 1 };
+            }
+          }
+          return { deletedCount: 0 };
+        },
+      };
+    },
+  };
+}
 
 async function queryDnsOverHttps(name: string, type: 'SRV' | 'TXT'): Promise<DnsAnswer[]> {
   const providers = [
@@ -133,31 +197,41 @@ async function resolveSrvConnectionString(uri: string): Promise<string> {
   return `mongodb://${userInfo}${hosts.join(',')}${path}${query ? `?${query}` : ''}`;
 }
 
-async function getDatabase(config: AuthConfig): Promise<Db> {
+async function getDatabase(config: AuthConfig): Promise<Db | MemoryDatabase> {
   if (!config.mongoUri) {
-    throw new AuthError('MongoDB is not configured. Add MONGODB_URI to .env.local and restart the dev server.', 503);
+    console.warn('MongoDB is not configured; using in-memory auth fallback for local development.');
+    return createMemoryDatabase();
   }
 
   if (!clientPromise) {
     clientPromise = resolveSrvConnectionString(config.mongoUri)
       .then(uri => new MongoClient(uri, { serverSelectionTimeoutMS: 10_000 }).connect())
       .catch((error: unknown) => {
-      clientPromise = undefined;
-      throw error;
-    });
+        clientPromise = undefined;
+        throw error;
+      });
   }
 
-  const client = await clientPromise;
-  const database = client.db(config.databaseName || 'hackverse');
-  await Promise.all([
-    database.collection<UserDocument>('users').createIndex({ email: 1 }, { unique: true }),
-    database.collection<SessionDocument>('sessions').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
-  ]);
-  return database;
+  try {
+    const client = await clientPromise;
+    const database = client.db(config.databaseName || 'hackverse');
+    await Promise.all([
+      database.collection<UserDocument>('users').createIndex({ email: 1 }, { unique: true }),
+      database.collection<SessionDocument>('sessions').createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
+    ]);
+    return database;
+  } catch (error) {
+    if (!config.isProduction) {
+      console.warn('MongoDB unavailable; using in-memory auth fallback for local development.', error);
+      return createMemoryDatabase();
+    }
+    throw error;
+  }
 }
 
-function publicUser(user: WithId<UserDocument>): PublicUser {
-  return { id: user._id.toHexString(), name: user.name, email: user.email };
+function publicUser(user: { _id?: ObjectId | string; name: string; email: string }): PublicUser {
+  const id = user._id instanceof ObjectId ? user._id.toHexString() : String(user._id ?? '');
+  return { id, name: user.name, email: user.email };
 }
 
 function parseEmail(value: unknown): string {
@@ -314,9 +388,9 @@ export async function handleAuthRequest(
       return true;
     }
 
-    const database = await getDatabase(config);
-    const users = database.collection<UserDocument>('users');
-    const sessions = database.collection<SessionDocument>('sessions');
+    const database = await getDatabase(config) as any;
+    const users = database.collection('users');
+    const sessions = database.collection('sessions');
 
     if (isSessionRequest) {
       if (!token) {
